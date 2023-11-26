@@ -8,7 +8,7 @@ public abstract record StronglyTypedUlid<T>(string Value) : StronglyTypedId<stri
     public static T NewId() => 
         GenerateIdInstance(Ulid.NewUlid());
 
-    public override bool TryParse(string value, out T? result)
+    public override bool TryParse(string value, out T result)
     {
         bool success = Ulid.TryParse(value, out Ulid parsedValue);
         result = success ? GenerateIdInstance(id: parsedValue) : null;
