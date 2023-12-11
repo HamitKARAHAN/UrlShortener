@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using UrlShortener.DomainCore.Guards;
 using UrlShortener.DomainCore.Primitives;
 
-public class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
+internal class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -39,7 +39,7 @@ public class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
                     entityEntry.Entity.UpdateModifiedAt(DateTime.UtcNow);
                     break;
                 case EntityState.Added:
-                    Guard.Against.UnSetCreatedAt(entityEntry.Entity, nameof(entityEntry.Entity.CreatedAt));
+                    Guard.Against.Default(entityEntry.Entity.CreatedAt);
                     break;
                 default:
                     break;
