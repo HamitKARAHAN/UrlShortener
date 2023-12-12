@@ -1,4 +1,6 @@
-﻿namespace UrlShortener.DomainCore.Identity;
+﻿using Ardalis.GuardClauses;
+
+namespace UrlShortener.DomainCore.Identity;
 public abstract record StronglyTypedId<TValue, T>(TValue Value) : IComparable<StronglyTypedId<TValue, T>>
     where T : StronglyTypedId<TValue, T>
     where TValue : IComparable<TValue>
@@ -11,5 +13,9 @@ public abstract record StronglyTypedId<TValue, T>(TValue Value) : IComparable<St
 
     public virtual bool Equals(StronglyTypedId<TValue, T> other) => other != null && Value.Equals(other.Value);
 
-    public static implicit operator TValue(StronglyTypedId<TValue, T> stronglyTypedId) => stronglyTypedId.Value;
+    public static implicit operator TValue(StronglyTypedId<TValue, T> stronglyTypedId)
+    {
+        Guard.Against.Null(stronglyTypedId);
+        return stronglyTypedId.Value;
+    }
 }

@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using UrlShortener.DomainCore.Guards;
 using UrlShortener.DomainCore.Primitives;
 
 internal class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor

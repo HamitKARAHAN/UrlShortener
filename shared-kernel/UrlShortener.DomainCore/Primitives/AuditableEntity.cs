@@ -7,8 +7,5 @@ public class AuditableEntity<T>(T id) : Entity<T>(id), IAuditableEntity where T 
 
     public DateTime? ModifiedAt { get; private set; }
 
-    void IAuditableEntity.UpdateModifiedAt(DateTime? modifiedAt)
-    {
-        ModifiedAt = modifiedAt;
-    }
+    void IAuditableEntity.UpdateModifiedAt(DateTime? modifiedAt) => this.ModifiedAt = modifiedAt;
 }
