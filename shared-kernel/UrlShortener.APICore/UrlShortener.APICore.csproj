@@ -6,4 +6,9 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UrlShortener.ApplicationCore\UrlShortener.ApplicationCore.csproj" />
+    <ProjectReference Include="..\UrlShortener.InfrastructureCore\UrlShortener.InfrastructureCore.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UrlShortener.DomainCore\UrlShortener.DomainCore.csproj" />
+    <ProjectReference Include="..\UrlShortener.ApplicationCore\UrlShortener.ApplicationCore.csproj" />
   </ItemGroup>
 
 </Project>
