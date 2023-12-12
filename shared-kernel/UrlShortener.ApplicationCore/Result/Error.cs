@@ -1,29 +1,32 @@
 ﻿using Ardalis.GuardClauses;
 
-namespace UrlShortener.ApplicationCore.Result
+namespace UrlShortener.ApplicationCore.Result;
+
+public sealed record Error
 {
-    public sealed record Error
+    private Error(string code, string message)
     {
-        private Error(string code, string message)
-        {
-            Code = code;
-            Message = message;
-        }
+        Code = code;
+        Message = message;
+    }
 
-        public static readonly Error None = new(code: string.Empty, message: string.Empty);
-        public static readonly Error NullValue = new(code: "Error.NullValue", message: "The specified result value is null");
+    public static readonly Error None = new(code: string.Empty, message: string.Empty);
+    public static readonly Error NullValue = new(code: "Error.NullValue", message: "The specified result value is null");
 
-        public string Code { get; }
-        public string Message { get; }
+    public string Code { get; }
+    public string Message { get; }
 
-        public static implicit operator string(Error error) => error.Code;
+    public static implicit operator string(Error error)
+    {
+        Guard.Against.Null(error);
+        return error.Code;
+    }
 
-        internal static Error Create(string code, string message)
-        {
-            Guard.Against.NullOrEmpty(code);
-            Guard.Against.NullOrEmpty(message);
-            return new Error(code: code, message: message);
-        }
+    internal static Error Create(string code, string message)
+    {
+        Guard.Against.NullOrEmpty(code);
+        Guard.Against.NullOrEmpty(message);
+        return new Error(code: code, message: message);
     }
 }
 

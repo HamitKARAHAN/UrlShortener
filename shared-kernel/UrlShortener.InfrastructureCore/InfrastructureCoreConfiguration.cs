@@ -9,10 +9,7 @@ using UrlShortener.InfrastructureCore.Persistence;
 
 public static class InfrastructureCoreConfiguration
 {
-    public static void AddInfrastructureCoreModule<T>(this IServiceCollection services, IConfiguration configuration) where T : DbContext
-    {
-        services.ConfigureDatabaseContext<T>(configuration);
-    }
+    public static void AddInfrastructureCoreModule<T>(this IServiceCollection services, IConfiguration configuration) where T : DbContext => services.ConfigureDatabaseContext<T>(configuration);
 
     private static IServiceCollection ConfigureDatabaseContext<T>(
         this IServiceCollection services,

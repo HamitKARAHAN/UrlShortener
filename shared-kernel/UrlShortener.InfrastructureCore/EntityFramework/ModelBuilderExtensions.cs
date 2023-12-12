@@ -1,5 +1,6 @@
 ﻿namespace UrlShortener.InfrastructureCore.EntityFramework;
 
+using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -12,6 +13,7 @@ public static class ModelBuilderExtensions
         where T : class 
         where TId : StronglyTypedUlid<TId>
     {
+        Guard.Against.Null(modelBuilder);
         modelBuilder
             .Entity<T>()
             .Property(expression)
@@ -20,16 +22,22 @@ public static class ModelBuilderExtensions
 
     public static ModelBuilder UseStringForEnums(this ModelBuilder modelBuilder)
     {
+        Guard.Against.Null(modelBuilder);
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {
             foreach (IMutableProperty property in entityType.GetProperties())
             {
-                if (property.ClrType.IsEnum) continue;
+                if (property.ClrType.IsEnum)
+                {
+                    continue;
+                }
+
                 Type converterType = typeof(EnumToStringConverter<>).MakeGenericType(property.ClrType);
                 ValueConverter converterInstance = (ValueConverter)Activator.CreateInstance(converterType)!;
                 property.SetValueConverter(converterInstance);
             }
         }
+
         return modelBuilder;
     }
 }
