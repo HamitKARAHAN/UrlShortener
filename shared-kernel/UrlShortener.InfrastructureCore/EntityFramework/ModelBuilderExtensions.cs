@@ -3,14 +3,12 @@
 // </copyright>
 
 namespace UrlShortener.InfrastructureCore.EntityFramework;
-
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Linq.Expressions;
 using UrlShortener.DomainCore.Identity;
-
 public static class ModelBuilderExtensions
 {
     public static void MapStronglyTypedUlid<T, TId>(this ModelBuilder modelBuilder, Expression<Func<T, TId>> expression)

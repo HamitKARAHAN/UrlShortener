@@ -3,10 +3,8 @@
 // </copyright>
 
 namespace UrlShortener.InfrastructureCore.EntityFramework;
-
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
-
 public abstract class SharedKernelDbContext<TContext>(DbContextOptions<TContext> options) : DbContext(options)
     where TContext : DbContext
 {

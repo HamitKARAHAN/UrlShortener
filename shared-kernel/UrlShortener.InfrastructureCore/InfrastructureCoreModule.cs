@@ -1,16 +1,14 @@
-﻿// <copyright file="InfrastructureCoreConfiguration.cs" company="PlaceholderCompany">
+﻿// <copyright file="InfrastructureCoreModule.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace UrlShortener.InfrastructureCore;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UrlShortener.DomainCore.Abstractions;
 using UrlShortener.InfrastructureCore.EntityFramework;
 using UrlShortener.InfrastructureCore.Persistence;
-
-public static class InfrastructureCoreConfiguration
+public static class InfrastructureCoreModule
 {
     public static void AddInfrastructureCoreModule<T>(this IServiceCollection services)
         where T : DbContext => services.ConfigureDatabaseContext<T>();

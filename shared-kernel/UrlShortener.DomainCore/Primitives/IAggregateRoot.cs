@@ -2,9 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using UrlShortener.DomainCore.Abstractions;
-
 namespace UrlShortener.DomainCore.Primitives;
+using UrlShortener.DomainCore.Abstractions;
 public interface IAggregateRoot
 {
     IReadOnlyCollection<IDomainEvent> DomainEvents { get; }

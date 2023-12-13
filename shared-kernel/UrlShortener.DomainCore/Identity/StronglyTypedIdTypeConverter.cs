@@ -7,7 +7,6 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
-
 public abstract class StronglyTypedIdTypeConverter<TValue, T> : TypeConverter
     where T : StronglyTypedId<TValue, T>
     where TValue : IComparable<TValue>

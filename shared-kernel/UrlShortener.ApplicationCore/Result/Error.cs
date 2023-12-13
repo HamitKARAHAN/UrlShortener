@@ -2,10 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Ardalis.GuardClauses;
-
 namespace UrlShortener.ApplicationCore.Result;
-
+using Ardalis.GuardClauses;
 public sealed record Error
 {
     private Error(string code, string message)

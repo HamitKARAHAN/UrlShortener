@@ -3,11 +3,9 @@
 // </copyright>
 
 namespace UrlShortener.DomainCore.Primitives;
-
 using Ardalis.GuardClauses;
 using System;
 using System.Collections.Generic;
-
 public sealed class EntityEqualityComparer<T> : IEqualityComparer<Entity<T>>
     where T : IComparable<T>
 {

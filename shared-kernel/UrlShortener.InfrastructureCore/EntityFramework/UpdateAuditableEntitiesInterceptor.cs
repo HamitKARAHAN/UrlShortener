@@ -3,7 +3,6 @@
 // </copyright>
 
 namespace UrlShortener.InfrastructureCore.EntityFramework;
-
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -11,7 +10,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UrlShortener.DomainCore.Primitives;
-
 internal sealed class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)

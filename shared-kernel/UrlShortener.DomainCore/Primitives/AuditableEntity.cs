@@ -4,7 +4,6 @@
 
 namespace UrlShortener.DomainCore.Primitives;
 using System;
-
 public class AuditableEntity<T>(T id) : Entity<T>(id), IAuditableEntity
     where T : IComparable<T>
 {

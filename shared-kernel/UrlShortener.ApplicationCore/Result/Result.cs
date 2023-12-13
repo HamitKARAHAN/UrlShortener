@@ -2,9 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using System.Net;
-
 namespace UrlShortener.ApplicationCore.Result;
+using System.Net;
 public class Result : ResultBase
 {
     private Result(HttpStatusCode statusCode)

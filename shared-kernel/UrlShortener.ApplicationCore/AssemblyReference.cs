@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace UrlShortener.InfrastructureCore;
+namespace UrlShortener.ApplicationCore;
 using System.Reflection;
 public static class AssemblyReference
 {

@@ -2,9 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Ardalis.GuardClauses;
-
 namespace UrlShortener.DomainCore.Identity;
+using Ardalis.GuardClauses;
 public abstract record StronglyTypedId<TValue, T>(TValue Value) : IComparable<StronglyTypedId<TValue, T>>
     where T : StronglyTypedId<TValue, T>
     where TValue : IComparable<TValue>
