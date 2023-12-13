@@ -18,6 +18,9 @@ public class Result : ResultBase
     public static Result BadRequest(string code, string message)
         => new (statusCode: HttpStatusCode.BadRequest, error: Error.Create(code: code, message: message));
 
+    public static Result Redirect()
+    => new (statusCode: HttpStatusCode.Redirect);
+
     public static Result Success()
         => new (statusCode: HttpStatusCode.NoContent);
 }

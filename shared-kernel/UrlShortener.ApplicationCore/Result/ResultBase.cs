@@ -19,11 +19,11 @@ public class ResultBase
         this.Error = error;
     }
 
-    internal HttpStatusCode StatusCode { get; }
+    public HttpStatusCode StatusCode { get; }
 
-    internal bool IsSuccess { get; }
+    public bool IsSuccess { get; }
 
-    internal bool IsFailure => !this.IsSuccess;
+    public bool IsFailure => !this.IsSuccess;
 
-    internal Error Error { get; }
+    public Error Error { get; }
 }
