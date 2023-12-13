@@ -1,4 +1,8 @@
-﻿namespace UrlShortener.DomainCore.Identity;
+﻿// <copyright file="StronglyTypedIdTypeConverter.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.DomainCore.Identity;
 using System;
 using System.ComponentModel;
 using System.Globalization;

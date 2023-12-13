@@ -1,4 +1,8 @@
-﻿using System.Net;
+﻿// <copyright file="ResultBase.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Net;
 
 namespace UrlShortener.ApplicationCore.Result;
 public class ResultBase
@@ -17,7 +21,10 @@ public class ResultBase
     }
 
     internal HttpStatusCode StatusCode { get; }
+
     internal bool IsSuccess { get; }
-    internal bool IsFailure => !IsSuccess;
+
+    internal bool IsFailure => !this.IsSuccess;
+
     internal Error Error { get; }
 }

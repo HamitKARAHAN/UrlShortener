@@ -1,4 +1,8 @@
-﻿namespace UrlShortener.InfrastructureCore.EntityFramework;
+﻿// <copyright file="SharedKernelDbContext.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.InfrastructureCore.EntityFramework;
 
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;

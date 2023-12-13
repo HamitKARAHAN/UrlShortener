@@ -1,11 +1,15 @@
-﻿namespace UrlShortener.DomainCore.Identity;
+﻿// <copyright file="StronglyTypedUlid.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.DomainCore.Identity;
 using System;
 using System.Reflection;
 
 public abstract record StronglyTypedUlid<T>(string Value) : StronglyTypedId<string, T>(Value)
     where T : StronglyTypedUlid<T>
 {
-    public static T NewId() => 
+    public static T NewId() =>
         GenerateIdInstance(Ulid.NewUlid());
 
     public override bool TryParse(string value, out T result)
@@ -15,6 +19,6 @@ public abstract record StronglyTypedUlid<T>(string Value) : StronglyTypedId<stri
         return success;
     }
 
-    private static T GenerateIdInstance(Ulid id) => 
+    private static T GenerateIdInstance(Ulid id) =>
         (T)Activator.CreateInstance(typeof(T), BindingFlags.Instance | BindingFlags.Public, null, new object[] { id.ToString() }, null)!;
 }

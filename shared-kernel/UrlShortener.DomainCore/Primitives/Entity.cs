@@ -1,15 +1,22 @@
-﻿namespace UrlShortener.DomainCore.Primitives;
+﻿// <copyright file="Entity.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.DomainCore.Primitives;
 public abstract class Entity<T>(T id) : IEquatable<Entity<T>>
     where T : IComparable<T>
 {
     public T Id { get; private set; } = id;
-    public virtual bool Equals(Entity<T> other) => 
-        !ReferenceEquals(null, other) &&
-        (ReferenceEquals(this, other) || EqualityComparer<T>.Default.Equals(Id, other.Id));
 
-    public override bool Equals(object obj) => Equals(obj as Entity<T>);
+    /// <inheritdoc/>
+    public virtual bool Equals(Entity<T> other) =>
+        other is not null &&
+        (ReferenceEquals(this, other) || EqualityComparer<T>.Default.Equals(this.Id, other.Id));
 
-    public override int GetHashCode() => EqualityComparer<T>.Default.GetHashCode(Id);
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => this.Equals(obj as Entity<T>);
+
+    public override int GetHashCode() => EqualityComparer<T>.Default.GetHashCode(this.Id);
 
     public static bool operator ==(Entity<T> a, Entity<T> b) => a?.Equals(b) == true;
 

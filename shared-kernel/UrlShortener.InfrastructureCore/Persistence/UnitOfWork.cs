@@ -1,4 +1,8 @@
-﻿namespace UrlShortener.InfrastructureCore.Persistence;
+﻿// <copyright file="UnitOfWork.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.InfrastructureCore.Persistence;
 
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;

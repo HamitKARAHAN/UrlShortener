@@ -1,4 +1,8 @@
-﻿namespace UrlShortener.InfrastructureCore.EntityFramework;
+﻿// <copyright file="UpdateAuditableEntitiesInterceptor.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.InfrastructureCore.EntityFramework;
 
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UrlShortener.DomainCore.Primitives;
 
-internal class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
+internal sealed class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -17,8 +21,8 @@ internal class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
     }
 
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
-        DbContextEventData eventData, 
-        InterceptionResult<int> result, 
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
         CancellationToken cancellationToken = default)
     {
         UpdateAutditableEntites(eventData);

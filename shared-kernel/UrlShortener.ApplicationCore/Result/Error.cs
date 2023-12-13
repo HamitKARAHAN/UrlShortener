@@ -1,4 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿// <copyright file="Error.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Ardalis.GuardClauses;
 
 namespace UrlShortener.ApplicationCore.Result;
 
@@ -6,12 +10,12 @@ public sealed record Error
 {
     private Error(string code, string message)
     {
-        Code = code;
-        Message = message;
+        this.Code = code;
+        this.Message = message;
     }
 
-    public static readonly Error None = new(code: string.Empty, message: string.Empty);
-    public static readonly Error NullValue = new(code: "Error.NullValue", message: "The specified result value is null");
+    public static readonly Error None = new (code: string.Empty, message: string.Empty);
+    public static readonly Error NullValue = new (code: "Error.NullValue", message: "The specified result value is null");
 
     public string Code { get; }
     public string Message { get; }
@@ -29,4 +33,3 @@ public sealed record Error
         return new Error(code: code, message: message);
     }
 }
-

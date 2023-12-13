@@ -6,4 +6,16 @@
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference
+      Include ="StyleCop.Analyzers"
+      Version ="1.1.118"
+      PrivateAssests ="all"
+      Condition ="$(MSBuildProjectExtension) == '.csproj'"/>
+    <PackageReference
+      Include ="SonarAnalyzer.CSharp"
+      Version ="9.15.0.81779"
+      PrivateAssests ="all"
+      Condition ="$(MSBuildProjectExtension) == '.csproj'"/>
+  </ItemGroup>
 </Project>

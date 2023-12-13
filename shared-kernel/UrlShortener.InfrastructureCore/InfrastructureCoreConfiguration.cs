@@ -1,7 +1,10 @@
-﻿namespace UrlShortener.InfrastructureCore;
+﻿// <copyright file="InfrastructureCoreConfiguration.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.InfrastructureCore;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UrlShortener.DomainCore.Abstractions;
 using UrlShortener.InfrastructureCore.EntityFramework;
@@ -9,18 +12,19 @@ using UrlShortener.InfrastructureCore.Persistence;
 
 public static class InfrastructureCoreConfiguration
 {
-    public static void AddInfrastructureCoreModule<T>(this IServiceCollection services, IConfiguration configuration) where T : DbContext => services.ConfigureDatabaseContext<T>(configuration);
+    public static void AddInfrastructureCoreModule<T>(this IServiceCollection services)
+        where T : DbContext => services.ConfigureDatabaseContext<T>();
 
     private static IServiceCollection ConfigureDatabaseContext<T>(
-        this IServiceCollection services,
-        IConfiguration configuration) where T : DbContext
+        this IServiceCollection services)
+        where T : DbContext
     {
         services
-            .AddDbContext<T>((IServiceProvider sp, DbContextOptionsBuilder options) 
+            .AddDbContext<T>((IServiceProvider sp, DbContextOptionsBuilder options)
             => options
-                .UseSqlServer("")
+                .UseSqlServer("test")
                 .AddInterceptors(
-                    sp.GetRequiredService<UpdateAuditableEntitiesInterceptor>(), 
+                    sp.GetRequiredService<UpdateAuditableEntitiesInterceptor>(),
                     sp.GetRequiredService<PublishDomainEventsInterceptor>()));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>(provider => new UnitOfWork(provider.GetRequiredService<T>()));

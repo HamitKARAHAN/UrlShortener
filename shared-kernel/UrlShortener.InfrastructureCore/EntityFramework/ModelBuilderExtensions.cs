@@ -1,4 +1,8 @@
-﻿namespace UrlShortener.InfrastructureCore.EntityFramework;
+﻿// <copyright file="ModelBuilderExtensions.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace UrlShortener.InfrastructureCore.EntityFramework;
 
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +14,7 @@ using UrlShortener.DomainCore.Identity;
 public static class ModelBuilderExtensions
 {
     public static void MapStronglyTypedUlid<T, TId>(this ModelBuilder modelBuilder, Expression<Func<T, TId>> expression)
-        where T : class 
+        where T : class
         where TId : StronglyTypedUlid<TId>
     {
         Guard.Against.Null(modelBuilder);
