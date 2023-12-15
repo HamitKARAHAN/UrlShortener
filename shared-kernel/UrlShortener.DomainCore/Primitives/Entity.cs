@@ -3,10 +3,12 @@
 // </copyright>
 
 namespace UrlShortener.DomainCore.Primitives;
-public abstract class Entity<T>(T id) : IEquatable<Entity<T>>
+public abstract class Entity<T> : IEquatable<Entity<T>>
     where T : IComparable<T>
 {
-    public T Id { get; private set; } = id;
+    protected Entity(T id) => this.Id = id;
+
+    public T Id { get; private set; }
 
     /// <inheritdoc/>
     public virtual bool Equals(Entity<T> other) =>

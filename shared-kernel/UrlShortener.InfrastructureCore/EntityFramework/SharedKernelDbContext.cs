@@ -5,9 +5,12 @@
 namespace UrlShortener.InfrastructureCore.EntityFramework;
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
+
+/// <inheritdoc />
 public abstract class SharedKernelDbContext<TContext>(DbContextOptions<TContext> options) : DbContext(options)
     where TContext : DbContext
 {
+    /// <inheritdoc />
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         Guard.Against.Null(optionsBuilder);
@@ -15,6 +18,7 @@ public abstract class SharedKernelDbContext<TContext>(DbContextOptions<TContext>
         base.OnConfiguring(optionsBuilder);
     }
 
+    /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Ensures that all enum properties are stored as strings in the database.

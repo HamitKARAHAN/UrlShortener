@@ -4,9 +4,14 @@
 
 namespace UrlShortener.DomainCore.Primitives;
 using System;
-public class AuditableEntity<T>(T id) : Entity<T>(id), IAuditableEntity
+public class AuditableEntity<T> : Entity<T>, IAuditableEntity
     where T : IComparable<T>
 {
+    protected AuditableEntity(T id)
+        : base(id)
+    {
+    }
+
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
     public DateTime? ModifiedAt { get; private set; }

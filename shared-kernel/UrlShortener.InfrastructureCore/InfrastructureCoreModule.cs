@@ -19,11 +19,12 @@ public static class InfrastructureCoreModule
     {
         services
             .AddDbContext<T>((IServiceProvider sp, DbContextOptionsBuilder options)
-            => options
-                .UseSqlServer("test")
-                .AddInterceptors(
-                    sp.GetRequiredService<UpdateAuditableEntitiesInterceptor>(),
-                    sp.GetRequiredService<PublishDomainEventsInterceptor>()));
+             => options
+                 .UseSqlServer("test")
+                 .AddInterceptors(
+                     sp.GetRequiredService<SoftDeleteInterceptor>(),
+                     sp.GetRequiredService<UpdateAuditableEntitiesInterceptor>(),
+                     sp.GetRequiredService<PublishDomainEventsInterceptor>()));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>(provider => new UnitOfWork(provider.GetRequiredService<T>()));
 
