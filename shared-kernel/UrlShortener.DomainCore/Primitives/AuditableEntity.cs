@@ -3,7 +3,9 @@
 // </copyright>
 
 namespace UrlShortener.DomainCore.Primitives;
+
 using System;
+
 public class AuditableEntity<T> : Entity<T>, IAuditableEntity
     where T : IComparable<T>
 {
@@ -11,6 +13,8 @@ public class AuditableEntity<T> : Entity<T>, IAuditableEntity
         : base(id)
     {
     }
+
+    protected AuditableEntity() { }
 
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 

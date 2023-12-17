@@ -6,5 +6,6 @@ namespace UrlShortener.Domain.TagDetails;
 
 using System.ComponentModel;
 using UrlShortener.DomainCore.Identity;
+
 [TypeConverter(typeof(TagDetailIdTypeConverter))]
 public sealed record TagDetailId(string Value) : StronglyTypedUlid<TagDetailId>(Value);

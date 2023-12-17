@@ -3,8 +3,11 @@
 // </copyright>
 
 namespace UrlShortener.Domain.Tags;
+
 using Ardalis.GuardClauses;
+using UrlShortener.Domain.TagDetails;
 using UrlShortener.DomainCore.Primitives;
+
 public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
 {
     private Tag(
@@ -22,6 +25,9 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
         this.IsPublic = isPublic;
     }
 
+    private Tag() { }
+
+    public TagDetail TagDetail { get; private set; }
     public string ShortUrl { get; private set; }
     public string LongUrl { get; private set; }
     public string Ip { get; private set; }
@@ -49,11 +55,14 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
         Guard.Against.NullOrEmpty(ip);
         Guard.Against.NullOrEmpty(description);
 
-        return new Tag(
+        Tag tag = new (
             shortUrl: shortUrl,
             longUrl: longUrl,
             ip: ip,
             description: description,
             isPublic: isPublic);
+
+        tag.TagDetail = TagDetail.Create(tag.Id);
+        return tag;
     }
 }

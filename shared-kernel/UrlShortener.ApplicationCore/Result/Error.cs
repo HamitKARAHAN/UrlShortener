@@ -3,7 +3,9 @@
 // </copyright>
 
 namespace UrlShortener.ApplicationCore.Result;
+
 using Ardalis.GuardClauses;
+
 public sealed record Error
 {
     private Error(string code, string message)

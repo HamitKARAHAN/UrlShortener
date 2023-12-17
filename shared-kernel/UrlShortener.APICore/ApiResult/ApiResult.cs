@@ -3,12 +3,14 @@
 // </copyright>
 
 namespace UrlShortener.APICore.ApiResult;
+
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UrlShortener.ApplicationCore.Result;
+
 public partial class ApiResult(ResultBase result, string redirectUrl = null) : IResult
 {
     protected string RedirectUrl { get;  } = redirectUrl;

@@ -3,10 +3,12 @@
 // </copyright>
 
 namespace UrlShortener.DomainCore.Primitives;
+
 public abstract class Entity<T> : IEquatable<Entity<T>>
     where T : IComparable<T>
 {
     protected Entity(T id) => this.Id = id;
+    protected Entity() { }
 
     public T Id { get; private set; }
 

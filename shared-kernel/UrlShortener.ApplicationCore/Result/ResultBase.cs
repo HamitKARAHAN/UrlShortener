@@ -3,7 +3,9 @@
 // </copyright>
 
 namespace UrlShortener.ApplicationCore.Result;
+
 using System.Net;
+
 public class ResultBase
 {
     protected ResultBase(HttpStatusCode statusCode)

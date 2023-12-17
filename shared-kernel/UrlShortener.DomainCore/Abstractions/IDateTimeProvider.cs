@@ -3,6 +3,7 @@
 // </copyright>
 
 namespace UrlShortener.DomainCore.Abstractions;
+
 public interface IDateTimeProvider
 {
     DateTime UtcNow { get; }

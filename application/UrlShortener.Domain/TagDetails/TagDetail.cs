@@ -3,8 +3,10 @@
 // </copyright>
 
 namespace UrlShortener.Domain.TagDetails;
+
 using UrlShortener.Domain.Tags;
 using UrlShortener.DomainCore.Primitives;
+
 public class TagDetail : AuditableEntity<TagDetailId>, ISoftDelete
 {
     internal TagDetail(TagId tagId, int clickedCount, DateTime? lastCallTime)
@@ -14,6 +16,8 @@ public class TagDetail : AuditableEntity<TagDetailId>, ISoftDelete
         this.ClickedCount = clickedCount;
         this.LastCallTime = lastCallTime;
     }
+
+    private TagDetail() { }
 
     public TagId TagId { get; private set; }
     public int ClickedCount { get; private set; }
@@ -27,4 +31,14 @@ public class TagDetail : AuditableEntity<TagDetailId>, ISoftDelete
         this.IsDeleted = true;
         this.DeletedAt = deletedAt;
     }
+
+    internal static TagDetail Create(TagId tagId)
+        => new (
+            tagId: tagId,
+            clickedCount: default,
+            lastCallTime: default);
+
+    public void UpdateClickedCount() => this.ClickedCount++;
+
+    public void UpdateLastCallTime(DateTime dateTime) => this.LastCallTime = dateTime;
 }

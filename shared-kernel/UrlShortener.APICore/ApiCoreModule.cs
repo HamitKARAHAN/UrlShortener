@@ -3,12 +3,14 @@
 // </copyright>
 
 namespace UrlShortener.APICore;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using UrlShortener.APICore.Middlewares;
+
 public static class ApiCoreModule
 {
     private const int StatusCode = (int)HttpStatusCode.GatewayTimeout;

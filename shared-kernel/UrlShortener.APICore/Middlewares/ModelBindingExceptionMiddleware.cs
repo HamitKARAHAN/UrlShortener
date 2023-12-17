@@ -7,6 +7,7 @@ namespace UrlShortener.APICore.Middlewares;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+
 public class ModelBindingExceptionMiddleware : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)

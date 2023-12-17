@@ -3,12 +3,14 @@
 // </copyright>
 
 namespace UrlShortener.InfrastructureCore.EntityFramework;
+
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Linq.Expressions;
 using UrlShortener.DomainCore.Identity;
+
 public static class ModelBuilderExtensions
 {
     public static void MapStronglyTypedUlid<T, TId>(this ModelBuilder modelBuilder, Expression<Func<T, TId>> expression)
@@ -31,12 +33,10 @@ public static class ModelBuilderExtensions
             {
                 if (property.ClrType.IsEnum)
                 {
-                    continue;
+                    Type converterType = typeof(EnumToStringConverter<>).MakeGenericType(property.ClrType);
+                    ValueConverter converterInstance = (ValueConverter)Activator.CreateInstance(converterType)!;
+                    property.SetValueConverter(converterInstance);
                 }
-
-                Type converterType = typeof(EnumToStringConverter<>).MakeGenericType(property.ClrType);
-                ValueConverter converterInstance = (ValueConverter)Activator.CreateInstance(converterType)!;
-                property.SetValueConverter(converterInstance);
             }
         }
 

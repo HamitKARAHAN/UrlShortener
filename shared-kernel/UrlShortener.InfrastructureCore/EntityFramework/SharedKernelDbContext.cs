@@ -3,6 +3,7 @@
 // </copyright>
 
 namespace UrlShortener.InfrastructureCore.EntityFramework;
+
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 

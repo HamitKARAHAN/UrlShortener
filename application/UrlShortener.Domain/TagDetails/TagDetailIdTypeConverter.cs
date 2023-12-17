@@ -3,5 +3,7 @@
 // </copyright>
 
 namespace UrlShortener.Domain.TagDetails;
+
 using UrlShortener.DomainCore.Identity;
+
 public sealed class TagDetailIdTypeConverter : StronglyTypedIdTypeConverter<string, TagDetailId>;

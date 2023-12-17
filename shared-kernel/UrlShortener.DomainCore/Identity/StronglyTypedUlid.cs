@@ -3,8 +3,10 @@
 // </copyright>
 
 namespace UrlShortener.DomainCore.Identity;
+
 using System;
 using System.Reflection;
+
 public abstract record StronglyTypedUlid<T>(string Value) : StronglyTypedId<string, T>(Value)
     where T : StronglyTypedUlid<T>
 {

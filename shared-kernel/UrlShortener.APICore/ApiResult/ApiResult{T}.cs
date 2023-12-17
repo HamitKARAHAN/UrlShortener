@@ -6,6 +6,7 @@ namespace UrlShortener.APICore.ApiResult;
 
 using Microsoft.AspNetCore.Http;
 using UrlShortener.ApplicationCore.Result;
+
 public class ApiResult<T>(Result<T> result, string redirectUrl = null) : ApiResult(result, redirectUrl)
 {
     protected override IResult ConvertToResult()

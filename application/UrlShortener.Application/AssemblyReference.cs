@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace UrlShortener.APICore;
+namespace UrlShortener.Application;
 
 using System.Reflection;
 

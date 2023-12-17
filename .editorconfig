@@ -274,6 +274,12 @@ dotnet_diagnostic.CA1054.severity = none
 # CA1056: URI-like parameters should not be strings
 dotnet_diagnostic.CA1056.severity = none
 
+# SA1500: Braces for multiLine statements must not share line
+dotnet_diagnostic.SA1500.severity = none
+
+# SA1508: Closing braces must not be preceded by blank line
+dotnet_diagnostic.SA1508.severity = none
+
 # SA1204: Static elements should appear before instance elements
 dotnet_diagnostic.SA1204.severity = none
 

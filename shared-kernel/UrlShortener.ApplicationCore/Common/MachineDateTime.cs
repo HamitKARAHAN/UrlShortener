@@ -3,7 +3,9 @@
 // </copyright>
 
 namespace UrlShortener.ApplicationCore.Common;
+
 using UrlShortener.DomainCore.Abstractions;
+
 public class MachineDateTime : IDateTimeProvider
 {
     public DateTime UtcNow => DateTime.UtcNow;

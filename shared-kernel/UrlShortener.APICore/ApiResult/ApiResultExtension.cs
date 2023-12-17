@@ -3,8 +3,10 @@
 // </copyright>
 
 namespace UrlShortener.APICore.ApiResult;
+
 using Ardalis.GuardClauses;
 using UrlShortener.ApplicationCore.Result;
+
 public static class ApiResultExtension
 {
     public static ApiResult RedirectToUrl<T>(this Result<T> result, string url)
