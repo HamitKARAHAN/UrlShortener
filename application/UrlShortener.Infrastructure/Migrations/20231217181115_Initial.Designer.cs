@@ -12,7 +12,7 @@ using UrlShortener.Infrastructure.EntityFramework;
 namespace UrlShortener.Infrastructure.Migrations
 {
     [DbContext(typeof(UrlShortenerDbContext))]
-    [Migration("20231217141354_Initial")]
+    [Migration("20231217181115_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

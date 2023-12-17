@@ -25,12 +25,11 @@ public sealed class UrlShortenerDbContext(DbContextOptions<UrlShortenerDbContext
 
         modelBuilder.MapStronglyTypedUlid<Tag, TagId>(t => t.Id);
         modelBuilder.MapStronglyTypedUlid<TagDetail, TagDetailId>(t => t.Id);
-        modelBuilder.Entity<Tag>().HasOne(t => t.TagDetail).WithOne().HasForeignKey<TagDetail>(td => td.TagId);
-    }
 
-    /// <inheritdoc />
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        base.OnConfiguring(optionsBuilder);
+        modelBuilder
+            .Entity<Tag>()
+            .HasOne(t => t.TagDetail)
+            .WithOne()
+            .HasForeignKey<TagDetail>(td => td.TagId);
     }
 }

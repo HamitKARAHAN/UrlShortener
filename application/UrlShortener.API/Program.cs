@@ -12,4 +12,5 @@ builder.Services
     .AddInfrastructureModule(configuration: builder.Configuration);
 WebApplication app = builder.Build();
 app.UseHttpsRedirection();
+app.UseApiCoreModule();
 app.Run();
