@@ -1,13 +1,9 @@
-﻿// <copyright file="20231217181115_Initial.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace UrlShortener.Infrastructure.Migrations;
+namespace UrlShortener.Infrastructure.Persistence;
 
 /// <inheritdoc />
 public partial class Initial : Migration
@@ -16,34 +12,40 @@ public partial class Initial : Migration
     protected override void Up(MigrationBuilder migrationBuilder)
     {
 #pragma warning disable CA1062 // Validate arguments of public methods
+        migrationBuilder.EnsureSchema(
+            name: "dbo");
+#pragma warning restore CA1062 // Validate arguments of public methods
+
         migrationBuilder.CreateTable(
-            name: "Tags",
+            name: "tags",
+            schema: "dbo",
             columns: table => new
             {
                 Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                ShortUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                LongUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                Ip = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 IsPublic = table.Column<bool>(type: "bit", nullable: false),
                 IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                 DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                Description_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                Ip_Type = table.Column<int>(type: "int", nullable: false),
+                Ip_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                LongUrl_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                ShortUrl_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                 ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_Tags", x => x.Id);
+                table.PrimaryKey("PK_tags", x => x.Id);
             });
-#pragma warning restore CA1062 // Validate arguments of public methods
 
         migrationBuilder.CreateTable(
-            name: "TagDetails",
+            name: "tagdetails",
+            schema: "dbo",
             columns: table => new
             {
                 Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 TagId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                ClickedCount = table.Column<int>(type: "int", nullable: false),
+                ClickedCount = table.Column<long>(type: "bigint", nullable: false),
                 LastCallTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                 IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                 DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -52,17 +54,19 @@ public partial class Initial : Migration
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_TagDetails", x => x.Id);
+                table.PrimaryKey("PK_tagdetails", x => x.Id);
                 table.ForeignKey(
-                    name: "FK_TagDetails_Tags_TagId",
+                    name: "FK_tagdetails_tags_TagId",
                     column: x => x.TagId,
-                    principalTable: "Tags",
+                    principalSchema: "dbo",
+                    principalTable: "tags",
                     principalColumn: "Id");
             });
 
         migrationBuilder.CreateIndex(
-            name: "IX_TagDetails_TagId",
-            table: "TagDetails",
+            name: "IX_tagdetails_TagId",
+            schema: "dbo",
+            table: "tagdetails",
             column: "TagId",
             unique: true,
             filter: "[TagId] IS NOT NULL");
@@ -73,10 +77,12 @@ public partial class Initial : Migration
     {
 #pragma warning disable CA1062 // Validate arguments of public methods
         migrationBuilder.DropTable(
-            name: "TagDetails");
+            name: "tagdetails",
+            schema: "dbo");
 #pragma warning restore CA1062 // Validate arguments of public methods
 
         migrationBuilder.DropTable(
-            name: "Tags");
+            name: "tags",
+            schema: "dbo");
     }
 }

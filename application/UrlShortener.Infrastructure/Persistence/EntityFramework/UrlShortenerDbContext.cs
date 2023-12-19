@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace UrlShortener.Infrastructure.EntityFramework;
+namespace UrlShortener.Infrastructure.Persistence.EntityFramework;
 
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
@@ -26,10 +26,6 @@ public sealed class UrlShortenerDbContext(DbContextOptions<UrlShortenerDbContext
         modelBuilder.MapStronglyTypedUlid<Tag, TagId>(t => t.Id);
         modelBuilder.MapStronglyTypedUlid<TagDetail, TagDetailId>(t => t.Id);
 
-        modelBuilder
-            .Entity<Tag>()
-            .HasOne(t => t.TagDetail)
-            .WithOne()
-            .HasForeignKey<TagDetail>(td => td.TagId);
+        modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
     }
 }

@@ -5,16 +5,18 @@
 namespace UrlShortener.Domain.Tags;
 
 using Ardalis.GuardClauses;
+using System.Net;
+using UrlShortener.ApplicationCore.Result;
 using UrlShortener.Domain.TagDetails;
 using UrlShortener.DomainCore.Primitives;
 
 public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
 {
     private Tag(
-        string shortUrl,
-        string longUrl,
-        string ip,
-        string description,
+        ShortUrl shortUrl,
+        LongUrl longUrl,
+        Ip ip,
+        Description description,
         bool isPublic)
         : base(TagId.NewId())
     {
@@ -28,10 +30,10 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
     private Tag() { }
 
     public TagDetail TagDetail { get; private set; }
-    public string ShortUrl { get; private set; }
-    public string LongUrl { get; private set; }
-    public string Ip { get; private set; }
-    public string Description { get; private set; }
+    public ShortUrl ShortUrl { get; private set; }
+    public LongUrl LongUrl { get; private set; }
+    public Ip Ip { get; private set; }
+    public Description Description { get; private set; }
     public bool IsPublic { get; private set; }
 
     public bool IsDeleted { get; private set; }
@@ -43,17 +45,17 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
         this.DeletedAt = deletedAt;
     }
 
-    public static Tag Create(
-        string shortUrl,
-        string longUrl,
-        string ip,
-        string description,
+    public static Result<Tag> Create(
+        ShortUrl shortUrl,
+        LongUrl longUrl,
+        Ip ip,
+        Description description,
         bool isPublic)
     {
-        Guard.Against.NullOrEmpty(shortUrl);
-        Guard.Against.NullOrEmpty(longUrl);
-        Guard.Against.NullOrEmpty(ip);
-        Guard.Against.NullOrEmpty(description);
+        Guard.Against.Null(shortUrl);
+        Guard.Against.Null(longUrl);
+        Guard.Against.Null(ip);
+        Guard.Against.Null(description);
 
         Tag tag = new (
             shortUrl: shortUrl,
@@ -62,7 +64,7 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
             description: description,
             isPublic: isPublic);
 
-        tag.TagDetail = TagDetail.Create(tag.Id);
-        return tag;
+        tag.TagDetail = TagDetail.Create(tag.Id).Value;
+        return Result<Tag>.Success(tag);
     }
 }

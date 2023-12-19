@@ -6,7 +6,7 @@ namespace UrlShortener.Infrastructure;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UrlShortener.Infrastructure.EntityFramework;
+using UrlShortener.Infrastructure.Persistence.EntityFramework;
 using UrlShortener.InfrastructureCore;
 
 public static class InfrastructureModule

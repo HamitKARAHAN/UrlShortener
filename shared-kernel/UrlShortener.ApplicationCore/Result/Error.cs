@@ -26,7 +26,7 @@ public sealed record Error
         return error.Code;
     }
 
-    internal static Error Create(string code, string message)
+    public static Error Create(string code, string message)
     {
         Guard.Against.NullOrEmpty(code);
         Guard.Against.NullOrEmpty(message);

@@ -14,11 +14,11 @@ public class Result : ResultBase
     private Result(HttpStatusCode statusCode, Error error)
         : base(statusCode: statusCode, error: error) { }
 
-    public static Result NotFound(string code, string message)
-        => new (statusCode: HttpStatusCode.NotFound, error: Error.Create(code: code, message: message));
+    public static Result NotFound(Error error)
+        => new (statusCode: HttpStatusCode.NotFound, error: error);
 
-    public static Result BadRequest(string code, string message)
-        => new (statusCode: HttpStatusCode.BadRequest, error: Error.Create(code: code, message: message));
+    public static Result BadRequest(Error error)
+        => new (statusCode: HttpStatusCode.BadRequest, error: error);
 
     public static Result Redirect()
     => new (statusCode: HttpStatusCode.Redirect);
