@@ -328,6 +328,9 @@ dotnet_diagnostic.CS0693.severity = none
 # CA1308: Normalize strings to uppercase
 dotnet_diagnostic.CA1308.severity = none
 
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = none
+
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4

@@ -5,9 +5,9 @@
 namespace UrlShortener.Domain.Tags;
 
 using Ardalis.GuardClauses;
-using UrlShortener.ApplicationCore.Result;
-using UrlShortener.Domain.Extensions;
 using UrlShortener.DomainCore.Abstractions;
+using UrlShortener.DomainCore.Extensions;
+using UrlShortener.DomainCore.Result;
 
 public sealed record ShortUrl : IValueObject
 {
@@ -22,8 +22,8 @@ public sealed record ShortUrl : IValueObject
     public static Result<ShortUrl> Create(string value)
     {
         Guard.Against.NullOrWhiteSpace(value);
-        Guard.Against.EqualLength(value: value.Length, equalValue: ExactLength, message: "TODO");
-        Guard.Against.InValidUrl(value: value, message: "TODO");
+        Guard.Against.EqualLength(value: value.Length, equalValue: ExactLength, DomainErrors.TagErrors.Error1);
+        Guard.Against.InValidUrl(value: value, DomainErrors.TagErrors.Error1);
         return Result<ShortUrl>.Success(new ShortUrl(value));
     }
 }

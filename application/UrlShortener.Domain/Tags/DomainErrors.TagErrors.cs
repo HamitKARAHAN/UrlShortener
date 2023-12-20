@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using UrlShortener.ApplicationCore.Result;
+using UrlShortener.DomainCore.Result;
 
 namespace UrlShortener.Domain.Tags;
 

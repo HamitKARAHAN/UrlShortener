@@ -1,8 +1,7 @@
 ﻿using Ardalis.GuardClauses;
-using System.ComponentModel.DataAnnotations;
-using UrlShortener.ApplicationCore.Result;
-using UrlShortener.Domain.Extensions;
 using UrlShortener.DomainCore.Abstractions;
+using UrlShortener.DomainCore.Result;
+using UrlShortener.DomainCore.Extensions;
 
 namespace UrlShortener.Domain.Tags;
 
@@ -20,8 +19,8 @@ public sealed record Description : IValueObject
     public static Result<Description> Create(string value)
     {
         Guard.Against.NullOrWhiteSpace(value);
-        Guard.Against.NotLessThan(value.Length, MinLength, "TODO");
-        Guard.Against.NotGreaterThan(value.Length, MaxLength, "TODO");
+        Guard.Against.NotLessThan(value.Length, MinLength, DomainErrors.TagErrors.Error1);
+        Guard.Against.NotGreaterThan(value.Length, MaxLength, DomainErrors.TagErrors.Error2);
         return Result<Description>.Success(new Description(value));
     }
 }

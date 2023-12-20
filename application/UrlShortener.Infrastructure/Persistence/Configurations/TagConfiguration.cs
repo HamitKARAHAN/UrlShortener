@@ -1,9 +1,9 @@
 ﻿using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using UrlShortener.Domain.Extensions;
 using UrlShortener.Domain.TagDetails;
 using UrlShortener.Domain.Tags;
+using UrlShortener.DomainCore.Extensions;
 
 namespace UrlShortener.Infrastructure.Persistence.Configurations;
 

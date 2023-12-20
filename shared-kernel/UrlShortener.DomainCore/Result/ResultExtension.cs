@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace UrlShortener.ApplicationCore.Result;
+namespace UrlShortener.DomainCore.Result;
 
 using System.Net;
 using Ardalis.GuardClauses;

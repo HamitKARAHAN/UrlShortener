@@ -5,10 +5,9 @@
 namespace UrlShortener.Domain.Tags;
 
 using Ardalis.GuardClauses;
-using System.Net;
-using UrlShortener.ApplicationCore.Result;
 using UrlShortener.Domain.TagDetails;
 using UrlShortener.DomainCore.Primitives;
+using UrlShortener.DomainCore.Result;
 
 public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
 {

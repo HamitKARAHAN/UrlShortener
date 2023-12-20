@@ -4,9 +4,9 @@
 
 namespace UrlShortener.Domain.TagDetails;
 
-using UrlShortener.ApplicationCore.Result;
 using UrlShortener.Domain.Tags;
 using UrlShortener.DomainCore.Primitives;
+using UrlShortener.DomainCore.Result;
 
 public class TagDetail : AuditableEntity<TagDetailId>, ISoftDelete
 {

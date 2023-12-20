@@ -1,6 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 
-namespace UrlShortener.Domain.Extensions;
+namespace UrlShortener.DomainCore.Extensions;
 
 public static class StringExtension
 {

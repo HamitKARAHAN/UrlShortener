@@ -5,9 +5,9 @@
 namespace UrlShortener.Domain.Tags;
 
 using Ardalis.GuardClauses;
-using UrlShortener.ApplicationCore.Result;
-using UrlShortener.Domain.Extensions;
 using UrlShortener.DomainCore.Abstractions;
+using UrlShortener.DomainCore.Extensions;
+using UrlShortener.DomainCore.Result;
 
 public sealed record LongUrl : IValueObject
 {
@@ -20,7 +20,7 @@ public sealed record LongUrl : IValueObject
     public static Result<LongUrl> Create(string value)
     {
         Guard.Against.NullOrWhiteSpace(value);
-        Guard.Against.InValidUrlCanBeUpperCase(value: value, message: "TODO");
+        Guard.Against.InValidUrlCanBeUpperCase(value: value, DomainErrors.TagErrors.Error2);
         return Result<LongUrl>.Success(value: new LongUrl(value));
     }
 }

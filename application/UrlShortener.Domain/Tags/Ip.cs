@@ -5,11 +5,10 @@
 namespace UrlShortener.Domain.Tags;
 
 using Ardalis.GuardClauses;
-using System.Net.Sockets;
 using System.Net;
-using UrlShortener.Domain.Extensions;
+using System.Net.Sockets;
 using UrlShortener.DomainCore.Abstractions;
-using UrlShortener.ApplicationCore.Result;
+using UrlShortener.DomainCore.Result;
 
 public sealed record Ip : IValueObject
 {
