@@ -5,7 +5,7 @@
 namespace UrlShortener.APICore.ApiResult;
 
 using Ardalis.GuardClauses;
-using UrlShortener.ApplicationCore.Result;
+using UrlShortener.DomainCore.Result;
 
 public static class ApiResultExtension
 {

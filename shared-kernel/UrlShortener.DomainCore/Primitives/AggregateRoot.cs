@@ -20,7 +20,6 @@ public class AggregateRoot<T> : AuditableEntity<T>, IAggregateRoot
 
     private readonly List<IDomainEvent> domainEvents = [];
 
-    [NotMapped]
     public IReadOnlyCollection<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
     public void ClearDomainEvents() => this.domainEvents.Clear();

@@ -5,7 +5,7 @@
 namespace UrlShortener.APICore.ApiResult;
 
 using Microsoft.AspNetCore.Http;
-using UrlShortener.ApplicationCore.Result;
+using UrlShortener.DomainCore.Result;
 
 public class ApiResult<T>(Result<T> result, string redirectUrl = null) : ApiResult(result, redirectUrl)
 {

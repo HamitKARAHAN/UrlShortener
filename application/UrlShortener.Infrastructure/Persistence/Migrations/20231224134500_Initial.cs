@@ -21,21 +21,21 @@ public partial class Initial : Migration
             schema: "dbo",
             columns: table => new
             {
-                Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                IsPublic = table.Column<bool>(type: "bit", nullable: false),
-                IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                Description_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                Ip_Type = table.Column<int>(type: "int", nullable: false),
-                Ip_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                LongUrl_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                ShortUrl_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                is_public = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                deleted_date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                ip_address_type = table.Column<int>(type: "int", nullable: false),
+                ip_address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                long_url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                short_url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                creation_date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                last_modify_date = table.Column<DateTime>(type: "datetime2", nullable: true)
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_tags", x => x.Id);
+                table.PrimaryKey("PK_tags", x => x.id);
             });
 
         migrationBuilder.CreateTable(
@@ -43,24 +43,24 @@ public partial class Initial : Migration
             schema: "dbo",
             columns: table => new
             {
-                Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 TagId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                ClickedCount = table.Column<long>(type: "bigint", nullable: false),
-                LastCallTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                click_count = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
+                last_access_time = table.Column<DateTime>(type: "datetime2", nullable: true),
+                is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                deleted_date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                creation_date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                last_modify_date = table.Column<DateTime>(type: "datetime2", nullable: true)
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_tagdetails", x => x.Id);
+                table.PrimaryKey("PK_tagdetails", x => x.id);
                 table.ForeignKey(
                     name: "FK_tagdetails_tags_TagId",
                     column: x => x.TagId,
                     principalSchema: "dbo",
                     principalTable: "tags",
-                    principalColumn: "Id");
+                    principalColumn: "id");
             });
 
         migrationBuilder.CreateIndex(

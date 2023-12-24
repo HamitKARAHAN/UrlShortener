@@ -13,7 +13,7 @@ using UrlShortener.Infrastructure.Persistence.EntityFramework;
 namespace UrlShortener.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(UrlShortenerDbContext))]
-    [Migration("20231219184211_Initial")]
+    [Migration("20231224134500_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -30,25 +30,37 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("UrlShortener.Domain.TagDetails.TagDetail", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id");
 
                     b.Property<long>("ClickedCount")
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
+                        .HasColumnName("click_count");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("creation_date");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnName("deleted_date");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_deleted");
 
                     b.Property<DateTime?>("LastCallTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("last_access_time");
 
                     b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
+                        .IsConcurrencyToken()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("last_modify_date");
 
                     b.Property<string>("TagId")
                         .HasColumnType("nvarchar(450)");
@@ -65,29 +77,41 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("UrlShortener.Domain.Tags.Tag", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("creation_date");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnName("deleted_date");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_deleted");
 
                     b.Property<bool>("IsPublic")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_public");
 
                     b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
+                        .IsConcurrencyToken()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("last_modify_date");
 
                     b.ComplexProperty<Dictionary<string, object>>("Description", "UrlShortener.Domain.Tags.Tag.Description#Description", b1 =>
                         {
                             b1.IsRequired();
 
                             b1.Property<string>("Value")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("description");
                         });
 
                     b.ComplexProperty<Dictionary<string, object>>("Ip", "UrlShortener.Domain.Tags.Tag.Ip#Ip", b1 =>
@@ -95,10 +119,13 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                             b1.IsRequired();
 
                             b1.Property<int>("Type")
-                                .HasColumnType("int");
+                                .HasColumnType("int")
+                                .HasColumnName("ip_address_type");
 
                             b1.Property<string>("Value")
-                                .HasColumnType("nvarchar(max)");
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ip_address");
                         });
 
                     b.ComplexProperty<Dictionary<string, object>>("LongUrl", "UrlShortener.Domain.Tags.Tag.LongUrl#LongUrl", b1 =>
@@ -106,7 +133,8 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                             b1.IsRequired();
 
                             b1.Property<string>("Value")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("long_url");
                         });
 
                     b.ComplexProperty<Dictionary<string, object>>("ShortUrl", "UrlShortener.Domain.Tags.Tag.ShortUrl#ShortUrl", b1 =>
@@ -114,7 +142,8 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                             b1.IsRequired();
 
                             b1.Property<string>("Value")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("short_url");
                         });
 
                     b.HasKey("Id");

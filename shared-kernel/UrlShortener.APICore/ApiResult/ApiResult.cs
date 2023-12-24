@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using UrlShortener.ApplicationCore.Result;
+using UrlShortener.DomainCore.Result;
 
 public partial class ApiResult(ResultBase result, string redirectUrl = null) : IResult
 {

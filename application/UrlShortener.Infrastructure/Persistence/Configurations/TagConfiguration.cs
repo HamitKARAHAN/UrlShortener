@@ -13,15 +13,77 @@ public sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
     {
         Guard.Against.Null(builder);
 
-        builder.ToTable(name: nameof(Tag).ToLowerInvariant().ToPlural());
+        builder
+            .ToTable(name: nameof(Tag).ToLowerInvariant().ToPlural());
+
         builder
             .HasOne(t => t.TagDetail)
             .WithOne()
             .HasForeignKey<TagDetail>(td => td.TagId);
 
-        builder.ComplexProperty(x => x.ShortUrl).IsRequired();
-        builder.ComplexProperty(x => x.LongUrl).IsRequired();
-        builder.ComplexProperty(x => x.Description).IsRequired();
-        builder.ComplexProperty(x => x.Ip).IsRequired();
+        builder
+            .HasKey(x => x.Id);
+        
+        builder
+            .Property(x => x.Id)
+            .HasColumnName(nameof(Tag.Id).ToLowerInvariant());
+
+        builder
+            .ComplexProperty(x => x.ShortUrl)
+            .IsRequired()
+            .Property(x => x.Value)
+            .HasColumnName("short_url");
+
+        builder
+            .ComplexProperty(x => x.LongUrl)
+            .IsRequired()
+            .Property(x => x.Value)
+            .HasColumnName("long_url");
+
+        builder
+            .ComplexProperty(x => x.Description)
+            .IsRequired()
+            .Property(x => x.Value)
+            .HasColumnName(nameof(Description).ToLowerInvariant());
+
+        builder
+            .ComplexProperty(x => x.Ip)
+            .IsRequired();
+
+        builder.ComplexProperty(x => x.Ip, b =>
+        {
+            b.Property(p => p.Value)
+                .IsRequired()
+                .HasColumnName("ip_address");
+            b.Property(p => p.Type)
+                .IsRequired()
+                .HasColumnName("ip_address_type");
+        });
+
+        builder.Property(x => x.IsPublic)
+            .HasDefaultValue(false)
+            .HasColumnName("is_public");
+
+        builder
+            .Property(x => x.IsDeleted)
+            .HasDefaultValue(false)
+            .HasColumnName("is_deleted");
+
+        builder.Ignore(x => x.DomainEvents);
+
+        builder
+            .Property(x => x.ModifiedAt)
+            .IsConcurrencyToken(true)
+            .HasDefaultValue(null)
+            .HasColumnName("last_modify_date");
+
+        builder
+            .Property(x => x.CreatedAt)
+            .HasColumnName("creation_date");
+
+        builder
+            .Property(x => x.DeletedAt)
+            .HasDefaultValue(null)
+            .HasColumnName("deleted_date");
     }
 }
