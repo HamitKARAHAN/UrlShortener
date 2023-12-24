@@ -331,6 +331,9 @@ dotnet_diagnostic.CA1308.severity = none
 # CA1032: Implement standard exception constructors
 dotnet_diagnostic.CA1032.severity = none
 
+# CA1711: Identifiers should not have incorrect suffix
+dotnet_diagnostic.CA1711.severity = none
+
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4

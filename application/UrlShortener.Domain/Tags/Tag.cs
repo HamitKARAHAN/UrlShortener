@@ -12,14 +12,14 @@ using UrlShortener.DomainCore.Result;
 public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
 {
     private Tag(
-        ShortUrl shortUrl,
+        ShortCode shortCode,
         LongUrl longUrl,
         Ip ip,
         Description description,
         bool isPublic)
         : base(TagId.NewId())
     {
-        this.ShortUrl = shortUrl;
+        this.ShortCode = shortCode;
         this.LongUrl = longUrl;
         this.Ip = ip;
         this.Description = description;
@@ -29,7 +29,7 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
     private Tag() { }
 
     public TagDetail TagDetail { get; private set; }
-    public ShortUrl ShortUrl { get; private set; }
+    public ShortCode ShortCode { get; private set; }
     public LongUrl LongUrl { get; private set; }
     public Ip Ip { get; private set; }
     public Description Description { get; private set; }
@@ -45,7 +45,7 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
     }
 
     public static Result<Tag> Create(
-        ShortUrl shortUrl,
+        ShortCode shortUrl,
         LongUrl longUrl,
         Ip ip,
         Description description,
@@ -57,7 +57,7 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
         Guard.Against.Null(description);
 
         Tag tag = new (
-            shortUrl: shortUrl,
+            shortCode: shortUrl,
             longUrl: longUrl,
             ip: ip,
             description: description,

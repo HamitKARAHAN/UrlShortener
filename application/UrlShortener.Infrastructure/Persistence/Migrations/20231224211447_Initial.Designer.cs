@@ -13,7 +13,7 @@ using UrlShortener.Infrastructure.Persistence.EntityFramework;
 namespace UrlShortener.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(UrlShortenerDbContext))]
-    [Migration("20231224134500_Initial")]
+    [Migration("20231224211447_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -63,13 +63,13 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                         .HasColumnName("last_modify_date");
 
                     b.Property<string>("TagId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TagId")
-                        .IsUnique()
-                        .HasFilter("[TagId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("tagdetails", "dbo");
                 });
@@ -137,13 +137,13 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                                 .HasColumnName("long_url");
                         });
 
-                    b.ComplexProperty<Dictionary<string, object>>("ShortUrl", "UrlShortener.Domain.Tags.Tag.ShortUrl#ShortUrl", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("ShortCode", "UrlShortener.Domain.Tags.Tag.ShortCode#ShortCode", b1 =>
                         {
                             b1.IsRequired();
 
                             b1.Property<string>("Value")
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("short_url");
+                                .HasColumnName("short_code");
                         });
 
                     b.HasKey("Id");
@@ -155,7 +155,9 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("UrlShortener.Domain.Tags.Tag", null)
                         .WithOne("TagDetail")
-                        .HasForeignKey("UrlShortener.Domain.TagDetails.TagDetail", "TagId");
+                        .HasForeignKey("UrlShortener.Domain.TagDetails.TagDetail", "TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UrlShortener.Domain.Tags.Tag", b =>

@@ -29,10 +29,10 @@ public sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
             .HasColumnName(nameof(Tag.Id).ToLowerInvariant());
 
         builder
-            .ComplexProperty(x => x.ShortUrl)
+            .ComplexProperty(x => x.ShortCode)
             .IsRequired()
             .Property(x => x.Value)
-            .HasColumnName("short_url");
+            .HasColumnName("short_code");
 
         builder
             .ComplexProperty(x => x.LongUrl)

@@ -29,7 +29,7 @@ public partial class Initial : Migration
                 ip_address_type = table.Column<int>(type: "int", nullable: false),
                 ip_address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 long_url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                short_url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                short_code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 creation_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                 last_modify_date = table.Column<DateTime>(type: "datetime2", nullable: true)
             },
@@ -44,7 +44,7 @@ public partial class Initial : Migration
             columns: table => new
             {
                 id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                TagId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                TagId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 click_count = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
                 last_access_time = table.Column<DateTime>(type: "datetime2", nullable: true),
                 is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
@@ -60,7 +60,8 @@ public partial class Initial : Migration
                     column: x => x.TagId,
                     principalSchema: "dbo",
                     principalTable: "tags",
-                    principalColumn: "id");
+                    principalColumn: "id",
+                    onDelete: ReferentialAction.Cascade);
             });
 
         migrationBuilder.CreateIndex(
@@ -68,8 +69,7 @@ public partial class Initial : Migration
             schema: "dbo",
             table: "tagdetails",
             column: "TagId",
-            unique: true,
-            filter: "[TagId] IS NOT NULL");
+            unique: true);
     }
 
     /// <inheritdoc />
