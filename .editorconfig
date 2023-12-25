@@ -347,6 +347,3 @@ dotnet_diagnostic.SA0001.severity = none
 
 # SA1516: Elements should be separated by blank line
 dotnet_diagnostic.SA1516.severity = none
-
-# Default severity for all analyzer diagnostics
-dotnet_analyzer_diagnostic.severity = none

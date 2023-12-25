@@ -1,4 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿// <copyright file="TagDetailConfiguration.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UrlShortener.Domain.TagDetails;

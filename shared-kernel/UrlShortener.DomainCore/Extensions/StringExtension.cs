@@ -1,4 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿// <copyright file="StringExtension.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Ardalis.GuardClauses;
 
 namespace UrlShortener.DomainCore.Extensions;
 

@@ -16,6 +16,7 @@ public static partial class GuardExtensions
 {
     [GeneratedRegex(@"^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$", RegexOptions.IgnoreCase, "tr-TR")]
     private static partial Regex ValidUrl();
+
     public static void InValidUrl(this IGuardClause guardClause, string value, Error error, [CallerArgumentExpression(nameof(value))] string parameterName = null)
     {
         if (!ValidUrl().IsMatch(value) || value.Any(char.IsUpper))

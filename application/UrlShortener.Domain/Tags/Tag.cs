@@ -29,13 +29,19 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
     private Tag() { }
 
     public TagDetail TagDetail { get; private set; }
+
     public ShortCode ShortCode { get; private set; }
+
     public LongUrl LongUrl { get; private set; }
+
     public Ip Ip { get; private set; }
+
     public Description Description { get; private set; }
+
     public bool IsPublic { get; private set; }
 
     public bool IsDeleted { get; private set; }
+
     public DateTimeOffset? DeletedAt { get; private set; }
 
     void ISoftDelete.SetDeleted(DateTime deletedAt)

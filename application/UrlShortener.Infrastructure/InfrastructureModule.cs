@@ -6,14 +6,21 @@ namespace UrlShortener.Infrastructure;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UrlShortener.Domain.Abstractions;
 using UrlShortener.Infrastructure.Persistence.EntityFramework;
+using UrlShortener.Infrastructure.Services;
 using UrlShortener.InfrastructureCore;
 
 public static class InfrastructureModule
 {
     public static IServiceCollection AddInfrastructureModule(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddInfrastructureCoreModule<UrlShortenerDbContext>(configuration: configuration);
-        return services;
-    }
+        => services
+            .AddDI()
+            .AddInfrastructureCoreModule(configuration: configuration);
+
+    public static IServiceCollection AddDI(this IServiceCollection services)
+        => services.AddTransient<IShortCodeGenerator, ShortCodeGenerator>();
+
+    public static IServiceCollection AddInfrastructureCoreModule(this IServiceCollection services, IConfiguration configuration)
+        => services.AddInfrastructureCoreModule<UrlShortenerDbContext>(configuration: configuration);
 }

@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿// <copyright file="IDomainEventHandler.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using MediatR;
 
 namespace UrlShortener.DomainCore.Abstractions;
 

@@ -1,4 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿// <copyright file="TagConfiguration.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UrlShortener.Domain.TagDetails;
@@ -23,7 +27,7 @@ public sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
 
         builder
             .HasKey(x => x.Id);
-        
+
         builder
             .Property(x => x.Id)
             .HasColumnName(nameof(Tag.Id).ToLowerInvariant());

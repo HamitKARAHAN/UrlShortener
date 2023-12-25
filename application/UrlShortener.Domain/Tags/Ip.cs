@@ -38,7 +38,7 @@ public sealed record Ip : IValueObject
             _ => IPAdressType.None
         };
 
-        return Result<Ip>.Success(new(value, type));
+        return Result<Ip>.Success(new (value, type));
     }
 }
 

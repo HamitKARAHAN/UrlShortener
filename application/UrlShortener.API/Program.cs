@@ -5,6 +5,7 @@
 using UrlShortener.APICore;
 using UrlShortener.Application;
 using UrlShortener.Infrastructure;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddApiCoreModule()

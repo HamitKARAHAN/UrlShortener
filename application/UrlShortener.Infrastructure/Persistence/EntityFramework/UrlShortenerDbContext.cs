@@ -15,6 +15,7 @@ public sealed class UrlShortenerDbContext(DbContextOptions<UrlShortenerDbContext
     : SharedKernelDbContext<UrlShortenerDbContext>(options)
 {
     public DbSet<Tag> Tags => this.Set<Tag>();
+
     public DbSet<TagDetail> TagDetails => this.Set<TagDetail>();
 
     /// <inheritdoc />

@@ -7,6 +7,7 @@ namespace UrlShortener.DomainCore.Primitives;
 public interface ISoftDelete
 {
     bool IsDeleted { get; }
+
     DateTimeOffset? DeletedAt { get; }
 
     void SetDeleted(DateTime deletedAt);

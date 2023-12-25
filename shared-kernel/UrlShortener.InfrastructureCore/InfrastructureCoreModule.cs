@@ -13,7 +13,7 @@ using UrlShortener.InfrastructureCore.Persistence;
 
 public static class InfrastructureCoreModule
 {
-    public static void AddInfrastructureCoreModule<T>(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureCoreModule<T>(this IServiceCollection services, IConfiguration configuration)
         where T : DbContext
         => services
             .AddDI()

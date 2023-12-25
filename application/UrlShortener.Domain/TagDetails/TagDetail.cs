@@ -21,8 +21,11 @@ public class TagDetail : AuditableEntity<TagDetailId>, ISoftDelete
     private TagDetail() { }
 
     public TagId TagId { get; private set; }
+
     public uint ClickedCount { get; private set; }
+
     public DateTime? LastCallTime { get; private set; }
+
     public bool IsDeleted { get; private set; }
 
     public DateTimeOffset? DeletedAt { get; private set; }
@@ -35,7 +38,7 @@ public class TagDetail : AuditableEntity<TagDetailId>, ISoftDelete
 
     internal static Result<TagDetail> Create(TagId tagId)
         => Result<TagDetail>.Success(
-            new(
+            new (
             tagId: tagId,
             clickedCount: default,
             lastCallTime: default));

@@ -14,6 +14,7 @@ using UrlShortener.DomainCore.Result;
 public partial class ApiResult(ResultBase result, string redirectUrl = null) : IResult
 {
     protected string RedirectUrl { get;  } = redirectUrl;
+
     public Task ExecuteAsync(HttpContext httpContext) => this.ConvertToResult().ExecuteAsync(httpContext);
 
     public static string GetHttpStatusDisplayName(HttpStatusCode statusCode) => HttpStatusDisplayName().Replace(statusCode.ToString(), " $1");

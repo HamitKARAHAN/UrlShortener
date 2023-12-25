@@ -13,7 +13,8 @@ using UrlShortener.APICore.Middlewares;
 
 public static class ApiCoreModule
 {
-    private const int StatusCode = (int)HttpStatusCode.GatewayTimeout;
+    private const int TimeoutStatusCode = (int)HttpStatusCode.GatewayTimeout;
+
     public static IServiceCollection AddApiCoreModule(this IServiceCollection services)
         => services
             .AddRequestTimeouts()
@@ -24,13 +25,13 @@ public static class ApiCoreModule
             => options.DefaultPolicy = new RequestTimeoutPolicy
             {
                 Timeout = TimeSpan.FromMilliseconds(value: 500),
-                TimeoutStatusCode = StatusCode,
+                TimeoutStatusCode = TimeoutStatusCode,
                 WriteTimeoutResponse = async (HttpContext context)
                     => await Results
                         .Problem(
                             title: "Request Timeout",
                             detail: $"{context.Request.Method} {context.Request.Path} {context.Request.QueryString}".Trim(),
-                            statusCode: StatusCode)
+                            statusCode: TimeoutStatusCode)
                         .ExecuteAsync(context)
             });
 
