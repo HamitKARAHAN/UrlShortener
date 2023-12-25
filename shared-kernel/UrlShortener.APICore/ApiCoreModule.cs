@@ -17,8 +17,15 @@ public static class ApiCoreModule
 
     public static IServiceCollection AddApiCoreModule(this IServiceCollection services)
         => services
+            .AddControllerModule()
             .AddRequestTimeouts()
             .AddExceptionHandlerMiddlewares();
+
+    private static IServiceCollection AddControllerModule(this IServiceCollection services)
+    {
+        services.AddControllers();
+        return services;
+    }
 
     private static IServiceCollection AddRequestTimeouts(this IServiceCollection services)
         => services.AddRequestTimeouts(options
@@ -44,6 +51,8 @@ public static class ApiCoreModule
     {
         app.UseRequestTimeouts();
         app.UseExceptionHandler(_ => { });
+        app.UseRouting();
+        app.MapControllers();
         return app;
     }
 }
