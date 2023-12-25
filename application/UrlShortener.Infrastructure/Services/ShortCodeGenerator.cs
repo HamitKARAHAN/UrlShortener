@@ -11,7 +11,7 @@ using UrlShortener.Infrastructure.Configurations;
 
 namespace UrlShortener.Infrastructure.Services;
 
-public class ShortCodeGenerator(IDateTimeProvider dateTimeProvider, IOptions<UrlShortenerSettings> options) : IShortCodeGenerator
+public sealed class ShortCodeGenerator(IDateTimeProvider dateTimeProvider, IOptions<UrlShortenerSettings> options) : IShortCodeGenerator
 {
     public async Task<string> GenerateShortCode(string longUrl)
     {
