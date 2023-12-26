@@ -6,7 +6,7 @@ using Ardalis.ApiEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UrlShortener.APICore.ApiResult;
-using UrlShortener.Application.Features.Tags;
+using UrlShortener.Application.Features.Tags.Create;
 
 namespace UrlShortener.API.Endpoints.Tags;
 

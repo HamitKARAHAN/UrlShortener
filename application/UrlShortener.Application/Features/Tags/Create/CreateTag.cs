@@ -5,7 +5,7 @@
 using UrlShortener.ApplicationCore.CQRS;
 using UrlShortener.DomainCore.Result;
 
-namespace UrlShortener.Application.Features.Tags;
+namespace UrlShortener.Application.Features.Tags.Create;
 
 public static class CreateTag
 {
