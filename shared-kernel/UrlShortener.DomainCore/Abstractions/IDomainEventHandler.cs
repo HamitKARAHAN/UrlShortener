@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using MediatR;
+using Mediator;
 
 namespace UrlShortener.DomainCore.Abstractions;
 

@@ -5,7 +5,6 @@
 namespace UrlShortener.DomainCore.Primitives;
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using UrlShortener.DomainCore.Abstractions;
 
 public class AggregateRoot<T> : AuditableEntity<T>, IAggregateRoot

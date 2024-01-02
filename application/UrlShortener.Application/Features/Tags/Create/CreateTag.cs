@@ -2,20 +2,58 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using FluentValidation;
 using UrlShortener.ApplicationCore.CQRS;
+using UrlShortener.Domain.Abstractions;
+using UrlShortener.Domain.Tags;
+using UrlShortener.DomainCore.Abstractions;
+using UrlShortener.DomainCore.Extensions;
 using UrlShortener.DomainCore.Result;
+using UrlShortener.DomainCore.Signatures;
 
 namespace UrlShortener.Application.Features.Tags.Create;
 
 public static class CreateTag
 {
-    public sealed record Command(string Url) : ICommand<Result<CreateTagResponse>>;
-
-    public sealed class Handler : ICommandHandler<Command, Result<CreateTagResponse>>
+    public sealed record Command(string Url, string Description, bool IsPublic) : ICommand<Result<CreateTagResponse>>, IHasIpAddress
     {
-        public Task<Result<CreateTagResponse>> Handle(Command command, CancellationToken cancellationToken)
+        public string IPAddress { get; set; }
+    }
+
+    internal sealed class Handler(ITagRepository tagRepository, IShortCodeGenerator shortCodeGenerator, IUnitOfWork unitOfWork, IDateTimeProvider dateTimeProvider)
+        : ICommandHandler<Command, Result<CreateTagResponse>>
+    {
+        public async ValueTask<Result<CreateTagResponse>> Handle(Command command, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Tag tag = await tagRepository.GetAggregateByPredicateAsync(x => x.LongUrl.Value == command.Url, cancellationToken);
+            if (tag is not null)
+            {
+                return Result<CreateTagResponse>.Success(value: new CreateTagResponse(shortCodeGenerator.GenerateUrl(tag.ShortCode)));
+            }
+
+            Tag newTag = Tag
+                .Create(
+                    ShortCode.Create(shortCode: await shortCodeGenerator.GenerateShortCode(longUrl: command.Url)).Value,
+                    LongUrl.Create(longUrl: command.Url).Value,
+                    Ip.Create(ipAddress: command.IPAddress).Value,
+                    Description.Create(description: command.Description).Value,
+                    isPublic: command.IsPublic,
+                    dateTimeProvider.UtcNow)
+                .Value;
+
+            await tagRepository.AddAsync(newTag, cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+            return Result<CreateTagResponse>.Success(value: new CreateTagResponse(shortCodeGenerator.GenerateUrl(newTag.ShortCode)));
         }
+    }
+}
+
+public sealed class CreateTagValidator : AbstractValidator<CreateTag.Command>
+{
+    public CreateTagValidator()
+    {
+        this.RuleFor(x => x.Url).NotEmpty();
+        this.RuleFor(x => x.Url).Matches(GuardExtensions.ValidUrl());
+        this.RuleFor(x => x.Description).NotEmpty();
     }
 }

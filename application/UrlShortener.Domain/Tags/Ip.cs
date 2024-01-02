@@ -5,31 +5,35 @@
 namespace UrlShortener.Domain.Tags;
 
 using Ardalis.GuardClauses;
+using System;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Sockets;
+using System.Reflection.Metadata.Ecma335;
 using UrlShortener.DomainCore.Abstractions;
+using UrlShortener.DomainCore.Exceptions;
+using UrlShortener.DomainCore.Extensions;
 using UrlShortener.DomainCore.Result;
 
 public sealed record Ip : IValueObject
 {
-    private Ip(string value, IPAdressType type)
+    private Ip(string ipAddress, IPAdressType type)
     {
-        this.Value = value;
+        this.Value = ipAddress;
         this.Type = type;
     }
+
+    private Ip() { }
 
     public string Value { get; private set; }
     public IPAdressType Type { get; private set; }
 
     public static implicit operator string(Ip ipAdress) => ipAdress?.Value ?? string.Empty;
 
-    public static Result<Ip> Create(string value)
+    public static Result<Ip> Create(string ipAddress)
     {
-        Guard.Against.NullOrWhiteSpace(value);
-        if (!IPAddress.TryParse(value, out IPAddress address))
-        {
-            return Result<Ip>.BadRequest(DomainErrors.TagErrors.Error1);
-        }
+        Guard.Against.NullOrWhiteSpace(ipAddress);
+        Guard.Against.InvalidIp(ipAddress, DomainErrors.TagErrors.Error1, out IPAddress address);
 
         IPAdressType type = address.AddressFamily switch
         {
@@ -37,8 +41,7 @@ public sealed record Ip : IValueObject
             AddressFamily.InterNetworkV6 => IPAdressType.V6,
             _ => IPAdressType.None
         };
-
-        return Result<Ip>.Success(new (value, type));
+        return new Ip(ipAddress, type);
     }
 }
 

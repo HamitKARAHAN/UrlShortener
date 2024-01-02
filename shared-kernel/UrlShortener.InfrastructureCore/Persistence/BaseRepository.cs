@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,12 @@ public abstract class BaseRepository<T, TId>(DbContext dbContext)
         object[] keyValues = [id];
         return await this.DbSet.FindAsync(keyValues, cancellationToken);
     }
+
+    public async Task<T> GetAggregateByPredicateAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        => await this.DbSet.FirstOrDefaultAsync(predicate, cancellationToken);
+
+    public async Task<IList<T>> GetAggregatesByPredicateAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+    => await this.DbSet.Where(predicate).ToListAsync(cancellationToken);
 
     public async Task<bool> ExistsAsync(TId id, CancellationToken cancellationToken)
         => this.DbSet.Local.Any(e => e.Id.Equals(id)) || await this.DbSet.AnyAsync(e => e.Id.Equals(id), cancellationToken);

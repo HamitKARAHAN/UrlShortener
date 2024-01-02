@@ -13,16 +13,18 @@ public sealed record ShortCode : IValueObject
 {
     private const int ExactLength = 10;
 
-    private ShortCode(string value) => this.Value = value;
+    private ShortCode(string shortCode) => this.Value = shortCode;
+
+    private ShortCode() { }
 
     public string Value { get; private set; }
 
     public static implicit operator string(ShortCode shortUrl) => shortUrl?.Value ?? string.Empty;
 
-    public static Result<ShortCode> Create(string value)
+    public static Result<ShortCode> Create(string shortCode)
     {
-        Guard.Against.NullOrWhiteSpace(value);
-        Guard.Against.EqualLength(value: value.Length, equalValue: ExactLength, DomainErrors.TagErrors.Error1);
-        return Result<ShortCode>.Success(new ShortCode(value));
+        Guard.Against.NullOrWhiteSpace(shortCode);
+        Guard.Against.EqualLength(value: shortCode.Length, equalValue: ExactLength, DomainErrors.TagErrors.Error1);
+        return new ShortCode(shortCode);
     }
 }

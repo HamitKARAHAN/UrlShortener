@@ -11,16 +11,18 @@ using UrlShortener.DomainCore.Result;
 
 public sealed record LongUrl : IValueObject
 {
-    private LongUrl(string value) => this.Value = value;
+    private LongUrl(string longUrl) => this.Value = longUrl;
+
+    private LongUrl() { }
 
     public string Value { get; private set; }
 
     public static implicit operator string(LongUrl shortUrl) => shortUrl?.Value ?? string.Empty;
 
-    public static Result<LongUrl> Create(string value)
+    public static Result<LongUrl> Create(string longUrl)
     {
-        Guard.Against.NullOrWhiteSpace(value);
-        Guard.Against.InValidUrlCanBeUpperCase(value: value, DomainErrors.TagErrors.Error2);
-        return Result<LongUrl>.Success(value: new LongUrl(value));
+        Guard.Against.NullOrWhiteSpace(longUrl);
+        Guard.Against.InValidUrlCanBeUpperCase(value: longUrl, DomainErrors.TagErrors.Error2);
+        return new LongUrl(longUrl);
     }
 }

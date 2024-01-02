@@ -3,7 +3,7 @@
 // </copyright>
 
 using FluentValidation;
-using MediatR;
+using Mediator;
 using UrlShortener.DomainCore.Result;
 
 namespace UrlShortener.ApplicationCore.Behaviors;
@@ -12,13 +12,13 @@ public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidat
     where TRequest : IBaseRequest
     where TResponse : ResultBase
 {
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
         if (validators.Any())
         {
-            return await next();
+            return await next(message, cancellationToken);
         }
 
-        return await next();
+        return await next(message, cancellationToken);
     }
 }

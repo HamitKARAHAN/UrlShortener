@@ -4,7 +4,7 @@
 
 namespace UrlShortener.DomainCore.Abstractions;
 
-using MediatR;
+using Mediator;
 
 public interface IDomainEvent : INotification
 {

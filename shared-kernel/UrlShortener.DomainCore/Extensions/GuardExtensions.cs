@@ -15,7 +15,7 @@ using UrlShortener.DomainCore.Result;
 public static partial class GuardExtensions
 {
     [GeneratedRegex(@"^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$", RegexOptions.IgnoreCase, "tr-TR")]
-    private static partial Regex ValidUrl();
+    public static partial Regex ValidUrl();
 
     public static void InValidUrl(this IGuardClause guardClause, string value, Error error, [CallerArgumentExpression(nameof(value))] string parameterName = null)
     {
@@ -52,6 +52,14 @@ public static partial class GuardExtensions
     public static void EqualLength(this IGuardClause guardClause, int value, int equalValue, Error error, [CallerArgumentExpression(nameof(value))] string parameterName = null)
     {
         if (value != equalValue)
+        {
+            throw new DomainException(error, parameterName);
+        }
+    }
+
+    public static void InvalidIp(this IGuardClause guardClause, string value, Error error, out IPAddress address, [CallerArgumentExpression(nameof(value))] string parameterName = null)
+    {
+        if (!IPAddress.TryParse(value, out address))
         {
             throw new DomainException(error, parameterName);
         }

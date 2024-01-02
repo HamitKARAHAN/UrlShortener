@@ -2,8 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Linq.Expressions;
+using UrlShortener.Domain.Tags;
+
 namespace UrlShortener.Domain.Abstractions;
 
 public interface ITagRepository
 {
+    Task<Tag> GetAggregateByPredicateAsync(Expression<Func<Tag, bool>> predicate, CancellationToken cancellationToken);
+
+    Task AddAsync(Tag aggregate, CancellationToken cancellationToken);
 }

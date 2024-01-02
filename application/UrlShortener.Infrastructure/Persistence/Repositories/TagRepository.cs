@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Linq.Expressions;
 using UrlShortener.Domain.Abstractions;
 using UrlShortener.Domain.Tags;
 using UrlShortener.Infrastructure.Persistence.EntityFramework;

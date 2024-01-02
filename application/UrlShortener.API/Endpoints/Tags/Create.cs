@@ -3,7 +3,7 @@
 // </copyright>
 
 using Ardalis.ApiEndpoints;
-using MediatR;
+using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using UrlShortener.APICore.ApiResult;
 using UrlShortener.Application.Features.Tags.Create;
@@ -17,5 +17,10 @@ public sealed class Create(ISender sender)
 {
     [HttpPost("api/shortenUrl")]
     public override async Task<ApiResult<CreateTagResponse>> HandleAsync([FromBody] CreateTagRequest request, CancellationToken cancellationToken = default)
-        => await sender.Send(request: new CreateTag.Command(request.Url), cancellationToken: cancellationToken);
+        => await sender.Send(
+            request: new CreateTag.Command(
+                Url: request.Url,
+                Description: request.Description,
+                IsPublic: request.IsPublic),
+            cancellationToken: cancellationToken);
 }

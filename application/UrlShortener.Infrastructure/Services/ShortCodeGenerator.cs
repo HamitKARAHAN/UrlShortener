@@ -13,23 +13,26 @@ namespace UrlShortener.Infrastructure.Services;
 
 internal sealed class ShortCodeGenerator(IDateTimeProvider dateTimeProvider, IOptions<UrlShortenerSettings> options) : IShortCodeGenerator
 {
+    private readonly UrlShortenerSettings settings = options.Value;
     public async Task<string> GenerateShortCode(string longUrl)
     {
-        UrlShortenerSettings settings = options.Value;
         string combinedString = $"{longUrl}{dateTimeProvider.UtcNow.Ticks}";
 
         string hashedString = await GetHashString(combinedString);
-        if (hashedString.Length < settings.ShortCodeLenght)
+        if (hashedString.Length < this.settings.ShortCodeLenght)
         {
-            hashedString = hashedString.PadRight(settings.ShortCodeLenght, '0');
+            hashedString = hashedString.PadRight(this.settings.ShortCodeLenght, '0');
         }
-        else if (hashedString.Length > settings.ShortCodeLenght)
+        else if (hashedString.Length > this.settings.ShortCodeLenght)
         {
-            hashedString = hashedString[..settings.ShortCodeLenght];
+            hashedString = hashedString[..this.settings.ShortCodeLenght];
         }
 
         return hashedString;
     }
+
+    public string GenerateUrl(string shortCode)
+        => $"{this.settings.BaseUrl}/{shortCode}";
 
     private static async Task<string> GetHashString(string input)
     {

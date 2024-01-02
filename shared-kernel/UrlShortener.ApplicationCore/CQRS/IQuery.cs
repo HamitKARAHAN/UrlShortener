@@ -4,7 +4,7 @@
 
 namespace UrlShortener.ApplicationCore.CQRS;
 
-using MediatR;
+using Mediator;
 
 public interface IQuery<out TResponse> : IRequest<TResponse>
 {

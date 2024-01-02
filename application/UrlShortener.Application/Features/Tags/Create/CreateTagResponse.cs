@@ -4,4 +4,4 @@
 
 namespace UrlShortener.Application.Features.Tags.Create;
 
-public record CreateTagResponse(string ShortCode);
+public record CreateTagResponse(string ShortUrl);

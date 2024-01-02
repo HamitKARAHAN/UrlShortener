@@ -1,4 +1,4 @@
-﻿// <copyright file="20231224211447_Initial.cs" company="PlaceholderCompany">
+﻿// <copyright file="20231227161922_Initial.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -15,10 +15,8 @@ public partial class Initial : Migration
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
     {
-#pragma warning disable CA1062 // Validate arguments of public methods
         migrationBuilder.EnsureSchema(
             name: "dbo");
-#pragma warning restore CA1062 // Validate arguments of public methods
 
         migrationBuilder.CreateTable(
             name: "tags",
@@ -79,11 +77,9 @@ public partial class Initial : Migration
     /// <inheritdoc />
     protected override void Down(MigrationBuilder migrationBuilder)
     {
-#pragma warning disable CA1062 // Validate arguments of public methods
         migrationBuilder.DropTable(
             name: "tagdetails",
             schema: "dbo");
-#pragma warning restore CA1062 // Validate arguments of public methods
 
         migrationBuilder.DropTable(
             name: "tags",

@@ -55,7 +55,8 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
         LongUrl longUrl,
         Ip ip,
         Description description,
-        bool isPublic)
+        bool isPublic,
+        DateTime utcNow)
     {
         Guard.Against.Null(shortUrl);
         Guard.Against.Null(longUrl);
@@ -70,6 +71,8 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
             isPublic: isPublic);
 
         tag.TagDetail = TagDetail.Create(tag.Id).Value;
+
+        tag.RaiseDomainEvent(TagCreatedDomainEvent.Create(tag.Id, utcNow));
         return Result<Tag>.Success(tag);
     }
 }

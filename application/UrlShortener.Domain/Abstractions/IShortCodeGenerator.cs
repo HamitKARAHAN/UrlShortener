@@ -7,4 +7,6 @@ namespace UrlShortener.Domain.Abstractions;
 public interface IShortCodeGenerator
 {
     Task<string> GenerateShortCode(string longUrl);
+
+    string GenerateUrl(string shortCode);
 }
