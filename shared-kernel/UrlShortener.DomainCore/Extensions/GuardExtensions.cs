@@ -14,7 +14,7 @@ using UrlShortener.DomainCore.Result;
 
 public static partial class GuardExtensions
 {
-    [GeneratedRegex(@"^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$", RegexOptions.IgnoreCase, "tr-TR")]
+    [GeneratedRegex(@"^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$", RegexOptions.IgnoreCase)]
     public static partial Regex ValidUrl();
 
     public static void InValidUrl(this IGuardClause guardClause, string value, Error error, [CallerArgumentExpression(nameof(value))] string parameterName = null)

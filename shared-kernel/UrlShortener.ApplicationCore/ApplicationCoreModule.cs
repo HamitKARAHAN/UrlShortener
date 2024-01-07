@@ -20,8 +20,9 @@ public static class ApplicationCoreModule
 
         services.AddMediatR(config =>
         {
-            config.AddOpenBehavior(typeof(ClientInfoBehavior<>));
-            config.AddOpenBehavior(typeof(ValidationBehavior<>));
+            config.RegisterServicesFromAssembly(assembly);
+            config.AddOpenRequestPreProcessor(typeof(ClientInfoBehavior<>));
+            config.AddOpenRequestPreProcessor(typeof(ValidationBehavior<>));
         });
         return services;
     }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UrlShortener.Domain.Abstractions;
+using UrlShortener.Infrastructure.Configurations;
 using UrlShortener.Infrastructure.Persistence.EntityFramework;
 using UrlShortener.Infrastructure.Persistence.Repositories;
 using UrlShortener.Infrastructure.Services;
@@ -19,6 +20,7 @@ public static class InfrastructureModule
         => services
             .AddMemoryCacheModule()
             .AddDI()
+            .AddConfigurationModule()
             .AddInfrastructureCoreModule(configuration: configuration);
 
     public static IServiceCollection AddDI(this IServiceCollection services)
@@ -35,4 +37,14 @@ public static class InfrastructureModule
 
     private static IServiceCollection AddMemoryCacheModule(this IServiceCollection services)
         => services.AddMemoryCache();
+
+    private static IServiceCollection AddConfigurationModule(this IServiceCollection services)
+    {
+        services
+            .AddOptions<UrlShortenerSettings>()
+            .BindConfiguration(nameof(UrlShortenerSettings))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+        return services;
+    }
 }

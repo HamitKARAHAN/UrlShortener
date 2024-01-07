@@ -3,7 +3,6 @@
 // </copyright>
 
 using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
 using UrlShortener.ApplicationCore.CQRS;
 using UrlShortener.Domain.Abstractions;
 using UrlShortener.Domain.Tags;
