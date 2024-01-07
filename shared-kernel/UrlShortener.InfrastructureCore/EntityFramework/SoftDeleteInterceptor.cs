@@ -37,7 +37,7 @@ internal sealed class SoftDeleteInterceptor(IDateTimeProvider dateTimeProvider) 
             if (entry is { State: EntityState.Deleted, Entity: ISoftDelete softDeleteEntity })
             {
                 entry.State = EntityState.Modified;
-                softDeleteEntity.SetDeleted(dateTimeProvider.UtcNow);
+                softDeleteEntity.SetDeleted(dateTimeProvider.UtcNow());
             }
         }
     }

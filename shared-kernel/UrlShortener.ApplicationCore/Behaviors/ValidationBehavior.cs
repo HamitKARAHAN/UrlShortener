@@ -3,22 +3,22 @@
 // </copyright>
 
 using FluentValidation;
-using Mediator;
-using UrlShortener.DomainCore.Result;
+using MediatR;
+using MediatR.Pipeline;
+using UrlShortener.DomainCore.Signatures;
 
 namespace UrlShortener.ApplicationCore.Behaviors;
 
-public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IBaseRequest
-    where TResponse : ResultBase
+public sealed class ValidationBehavior<TRequest>(IEnumerable<IValidator<TRequest>> validators) : IRequestPreProcessor<TRequest>
+    where TRequest : IBaseRequest, IValidRequest
 {
-    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
+    public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
         if (validators.Any())
         {
-            return await next(message, cancellationToken);
+            // TODOO throw
         }
 
-        return await next(message, cancellationToken);
+        await Task.CompletedTask;
     }
 }

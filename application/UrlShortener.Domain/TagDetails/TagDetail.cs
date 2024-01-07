@@ -37,11 +37,10 @@ public class TagDetail : AuditableEntity<TagDetailId>, ISoftDelete
     }
 
     internal static Result<TagDetail> Create(TagId tagId)
-        => Result<TagDetail>.Success(
-            new (
+        => new TagDetail(
             tagId: tagId,
             clickedCount: default,
-            lastCallTime: default));
+            lastCallTime: default);
 
     public void UpdateClickedCount() => this.ClickedCount++;
 

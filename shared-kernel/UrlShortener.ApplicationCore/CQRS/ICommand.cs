@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Mediator;
+using MediatR;
 
 namespace UrlShortener.ApplicationCore.CQRS;
 public interface ICommand<out TResponse> : IRequest<TResponse>

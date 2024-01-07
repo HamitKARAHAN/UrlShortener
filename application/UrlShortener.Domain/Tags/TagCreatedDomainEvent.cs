@@ -19,7 +19,7 @@ public record TagCreatedDomainEvent : IDomainEvent
         this.CreatedOnUtc = createdOnUtc;
     }
 
-    public static TagCreatedDomainEvent Create(TagId id, DateTime createdOnUtc)
+    internal static TagCreatedDomainEvent Create(TagId id, DateTime createdOnUtc)
     {
         Guard.Against.Null(id);
         Guard.Against.NullOrWhiteSpace(id.Value);

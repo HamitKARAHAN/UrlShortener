@@ -5,7 +5,6 @@
 namespace UrlShortener.ApplicationCore;
 
 using FluentValidation;
-using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using UrlShortener.ApplicationCore.Behaviors;
@@ -18,9 +17,12 @@ public static class ApplicationCoreModule
     {
         services.AddTransient<IDateTimeProvider, MachineDateTime>();
         services.AddValidatorsFromAssembly(assembly);
-        services.AddMediator();
-        services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(ClientInfoBehavior<,>));
-        services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+        services.AddMediatR(config =>
+        {
+            config.AddOpenBehavior(typeof(ClientInfoBehavior<>));
+            config.AddOpenBehavior(typeof(ValidationBehavior<>));
+        });
         return services;
     }
 }

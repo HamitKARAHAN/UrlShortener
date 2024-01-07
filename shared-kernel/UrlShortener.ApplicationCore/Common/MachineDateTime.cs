@@ -8,5 +8,5 @@ using UrlShortener.DomainCore.Abstractions;
 
 public class MachineDateTime : IDateTimeProvider
 {
-    public DateTime UtcNow => DateTime.UtcNow;
+    DateTime IDateTimeProvider.UtcNow() => DateTime.UtcNow;
 }

@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Newtonsoft.Json;
+
 namespace UrlShortener.Application.Features.Tags.Create;
 
-public record CreateTagResponse(string ShortUrl);
+public record CreateTagResponse([JsonProperty("shortUrl")]string ShortUrl);

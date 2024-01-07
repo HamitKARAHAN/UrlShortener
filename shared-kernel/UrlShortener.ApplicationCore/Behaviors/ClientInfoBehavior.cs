@@ -2,20 +2,18 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Mediator;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Http;
-using UrlShortener.DomainCore.Result;
 using UrlShortener.DomainCore.Signatures;
 
 namespace UrlShortener.ApplicationCore.Behaviors;
 
-public sealed class ClientInfoBehavior<TRequest, TResponse>(IHttpContextAccessor httpContextAccessor) : MessagePreProcessor<TRequest, TResponse>
-    where TRequest : notnull, IMessage, IHasIpAddress
-    where TResponse : ResultBase
+public sealed class ClientInfoBehavior<TRequest>(IHttpContextAccessor httpContextAccessor) : IRequestPreProcessor<TRequest>
+    where TRequest : notnull, IHasIpAddress
 {
-    protected override async ValueTask Handle(TRequest message, CancellationToken cancellationToken)
+    public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        message.IPAddress = httpContextAccessor.HttpContext.Connection?.RemoteIpAddress?.ToString();
-        await ValueTask.CompletedTask;
+        request.IPAddress = httpContextAccessor.HttpContext.Connection?.RemoteIpAddress?.ToString();
+        await Task.CompletedTask;
     }
 }

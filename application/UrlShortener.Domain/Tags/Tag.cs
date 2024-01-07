@@ -73,6 +73,6 @@ public sealed class Tag : AggregateRoot<TagId>, ISoftDelete
         tag.TagDetail = TagDetail.Create(tag.Id).Value;
 
         tag.RaiseDomainEvent(TagCreatedDomainEvent.Create(tag.Id, utcNow));
-        return Result<Tag>.Success(tag);
+        return tag;
     }
 }

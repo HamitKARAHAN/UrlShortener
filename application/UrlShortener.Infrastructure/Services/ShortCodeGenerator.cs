@@ -16,7 +16,7 @@ internal sealed class ShortCodeGenerator(IDateTimeProvider dateTimeProvider, IOp
     private readonly UrlShortenerSettings settings = options.Value;
     public async Task<string> GenerateShortCode(string longUrl)
     {
-        string combinedString = $"{longUrl}{dateTimeProvider.UtcNow.Ticks}";
+        string combinedString = $"{longUrl}{dateTimeProvider.UtcNow().Ticks}";
 
         string hashedString = await GetHashString(combinedString);
         if (hashedString.Length < this.settings.ShortCodeLenght)

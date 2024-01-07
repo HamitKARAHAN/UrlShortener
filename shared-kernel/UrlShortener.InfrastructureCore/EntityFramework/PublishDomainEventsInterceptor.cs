@@ -5,7 +5,7 @@
 namespace UrlShortener.InfrastructureCore.EntityFramework;
 
 using Ardalis.GuardClauses;
-using Mediator;
+using MediatR;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;

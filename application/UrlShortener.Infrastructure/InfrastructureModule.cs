@@ -23,7 +23,7 @@ public static class InfrastructureModule
 
     public static IServiceCollection AddDI(this IServiceCollection services)
         => services
-            .AddTransient<IShortCodeGenerator, ShortCodeGenerator>()
+            .AddSingleton<IShortCodeGenerator, ShortCodeGenerator>()
             .AddScoped<ITagRepository>(provider =>
             {
                 UrlShortenerDbContext context = provider.GetService<UrlShortenerDbContext>();

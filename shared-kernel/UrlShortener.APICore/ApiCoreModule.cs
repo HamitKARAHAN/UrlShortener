@@ -64,6 +64,7 @@ public static class ApiCoreModule
 
     public static WebApplication UseApiCoreModule(this WebApplication app)
     {
+        app.UseHttpsRedirection();
         app.UseForwardedHeaders();
         app.UseRequestTimeouts();
         app.UseExceptionHandler(_ => { });

@@ -7,15 +7,16 @@ using UrlShortener.ApplicationCore.CQRS;
 using UrlShortener.Domain.Abstractions;
 using UrlShortener.Domain.Tags;
 using UrlShortener.DomainCore.Result;
+using UrlShortener.DomainCore.Signatures;
 
 namespace UrlShortener.Application.Features.Tags.GetTag;
 public static class GetTag
 {
-    public sealed record Query(string ShortCode) : IQuery<Result<string>>;
+    public sealed record Query(string ShortCode) : IQuery<Result<string>>, IValidRequest;
 
     internal sealed class Handler(ITagRepository tagRepository) : IQueryHandler<Query, Result<string>>
     {
-        public async ValueTask<Result<string>> Handle(Query query, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(Query query, CancellationToken cancellationToken)
         {
             Tag tag = await tagRepository.GetAggregateByPredicateAsync(x => x.ShortCode == query.ShortCode, cancellationToken);
 
@@ -24,7 +25,7 @@ public static class GetTag
                 return Result<string>.BadRequest(DomainErrors.TagErrors.Error1);
             }
 
-            return Result<string>.Success(tag.LongUrl);
+            return tag.LongUrl.Value;
         }
     }
 }

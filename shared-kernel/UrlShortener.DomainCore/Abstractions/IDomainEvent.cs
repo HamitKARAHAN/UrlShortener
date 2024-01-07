@@ -2,10 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using MediatR;
+
 namespace UrlShortener.DomainCore.Abstractions;
-
-using Mediator;
-
 public interface IDomainEvent : INotification
 {
 }

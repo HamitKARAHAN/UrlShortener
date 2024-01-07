@@ -40,7 +40,7 @@ internal sealed class UpdateAuditableEntitiesInterceptor(IDateTimeProvider dateT
             switch (entityEntry.State)
             {
                 case EntityState.Modified:
-                    entityEntry.Entity.UpdateModifiedAt(dateTimeProvider.UtcNow);
+                    entityEntry.Entity.UpdateModifiedAt(dateTimeProvider.UtcNow());
                     break;
                 case EntityState.Added:
                     Guard.Against.Default(entityEntry.Entity.CreatedAt);

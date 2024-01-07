@@ -5,13 +5,9 @@
 namespace UrlShortener.Domain.Tags;
 
 using Ardalis.GuardClauses;
-using System;
 using System.Net;
-using System.Net.Http.Headers;
 using System.Net.Sockets;
-using System.Reflection.Metadata.Ecma335;
 using UrlShortener.DomainCore.Abstractions;
-using UrlShortener.DomainCore.Exceptions;
 using UrlShortener.DomainCore.Extensions;
 using UrlShortener.DomainCore.Result;
 

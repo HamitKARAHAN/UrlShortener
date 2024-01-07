@@ -3,7 +3,7 @@
 // </copyright>
 
 using Ardalis.ApiEndpoints;
-using Mediator;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UrlShortener.APICore.ApiResult;
 using UrlShortener.Application.Features.Tags.GetTag;
