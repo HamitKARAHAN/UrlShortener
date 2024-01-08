@@ -7,6 +7,7 @@ namespace UrlShortener.Infrastructure;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using UrlShortener.Domain.Abstractions;
 using UrlShortener.Infrastructure.Configurations;
 using UrlShortener.Infrastructure.Persistence.EntityFramework;
@@ -32,7 +33,7 @@ public static class InfrastructureModule
                 return new CachedTagRepository(
                     decorated: new TagRepository(context),
                     cache: provider.GetService<IMemoryCache>(),
-                    cacheSettings: provider.GetService<CacheSettings>());
+                    cacheSettings: provider.GetService<IOptions<CacheSettings>>().Value);
             });
 
     private static IServiceCollection AddInfrastructureCoreModule(this IServiceCollection services, IConfiguration configuration)
@@ -45,6 +46,11 @@ public static class InfrastructureModule
         services
             .AddOptions<UrlShortenerSettings>()
             .BindConfiguration(nameof(UrlShortenerSettings))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddOptions<CacheSettings>()
+            .BindConfiguration(nameof(CacheSettings))
             .ValidateDataAnnotations()
             .ValidateOnStart();
         return services;
