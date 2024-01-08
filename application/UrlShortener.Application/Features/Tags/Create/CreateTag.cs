@@ -31,7 +31,7 @@ public static class CreateTag
     {
         public async Task<Result<CreateTagResponse>> Handle(Command command, CancellationToken cancellationToken)
         {
-            Tag tag = await tagRepository.GetAggregateByPredicateAsync(command.Url, x => x.LongUrl.Value == command.Url, cancellationToken);
+            Tag tag = await tagRepository.GetAggregateByPredicateAsync(key: $"tag-long-url-{command.Url}", x => x.LongUrl.Value == command.Url, cancellationToken);
             if (tag is not null)
             {
                 return new CreateTagResponse(shortCodeGenerator.GenerateUrl(tag.ShortCode));

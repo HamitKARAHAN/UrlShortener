@@ -8,6 +8,7 @@ using UrlShortener.Domain.Abstractions;
 using UrlShortener.Domain.Tags;
 using UrlShortener.DomainCore.Result;
 using UrlShortener.DomainCore.Signatures;
+using static UrlShortener.Application.Features.Tags.Create.CreateTag;
 
 namespace UrlShortener.Application.Features.Tags.GetTag;
 public static class GetTag
@@ -18,7 +19,7 @@ public static class GetTag
     {
         public async Task<Result<string>> Handle(Query query, CancellationToken cancellationToken)
         {
-            Tag tag = await tagRepository.GetAggregateByPredicateAsync(query.ShortCode, x => x.ShortCode.Value == query.ShortCode, cancellationToken);
+            Tag tag = await tagRepository.GetAggregateByPredicateAsync(key: $"tag-short-code-{query.ShortCode}", x => x.ShortCode.Value == query.ShortCode, cancellationToken);
 
             if (tag is null)
             {
