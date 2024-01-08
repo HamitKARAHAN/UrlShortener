@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.Extensions.Caching.Memory;
 using UrlShortener.Domain.Abstractions;
 using UrlShortener.Domain.Tags;
@@ -13,12 +14,12 @@ internal sealed class CachedTagRepository(ITagRepository decorated, IMemoryCache
 {
     public Task AddAsync(Tag aggregate, CancellationToken cancellationToken) => decorated.AddAsync(aggregate, cancellationToken);
 
-    public async Task<Tag> GetAggregateByPredicateAsync(Expression<Func<Tag, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<Tag> GetAggregateByPredicateAsync(string key, Expression<Func<Tag, bool>> predicate, CancellationToken cancellationToken)
         => await cache
-            .GetOrCreateAsync("testkey", entry =>
+            .GetOrCreateAsync($"tag-{key}", entry =>
             {
                 entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(5));
 
-                return decorated.GetAggregateByPredicateAsync(predicate, cancellationToken);
+                return decorated.GetAggregateByPredicateAsync(key, predicate, cancellationToken);
             });
 }

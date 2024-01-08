@@ -17,15 +17,12 @@ public class ModelBindingExceptionMiddleware : IExceptionHandler
             return false;
         }
 
-#pragma warning disable CA1062 // Validate arguments of public methods
         await Results
             .Problem(
                 title: "Bad Request",
                 detail: exception.Message,
                 statusCode: (int)HttpStatusCode.BadRequest)
             .ExecuteAsync(httpContext);
-#pragma warning restore CA1062 // Validate arguments of public methods
-
         return true;
     }
 }

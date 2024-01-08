@@ -18,7 +18,7 @@ public static class GetTag
     {
         public async Task<Result<string>> Handle(Query query, CancellationToken cancellationToken)
         {
-            Tag tag = await tagRepository.GetAggregateByPredicateAsync(x => x.ShortCode == query.ShortCode, cancellationToken);
+            Tag tag = await tagRepository.GetAggregateByPredicateAsync(query.ShortCode, x => x.ShortCode.Value == query.ShortCode, cancellationToken);
 
             if (tag is null)
             {

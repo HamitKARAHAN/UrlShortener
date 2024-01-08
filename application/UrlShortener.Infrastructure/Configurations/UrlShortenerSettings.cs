@@ -14,6 +14,6 @@ public sealed class UrlShortenerSettings
 
     [Required]
     [Url]
-    [Length(minimumLength: 20, maximumLength: 20)]
+    [Length(minimumLength: 20, maximumLength: 30)]
     public string BaseUrl { get; set; }
 }

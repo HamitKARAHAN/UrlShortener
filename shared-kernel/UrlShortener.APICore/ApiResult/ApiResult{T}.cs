@@ -16,7 +16,7 @@ public class ApiResult<T>(Result<T> result, string redirectUrl = null) : ApiResu
             return this.GetProblemDetailsAsJson();
         }
 
-        return Results.Ok(result.Value);
+        return string.IsNullOrEmpty(this.RedirectUrl) ? Results.Ok(result.Value) : Results.Redirect(this.RedirectUrl, true);
     }
 
     public static implicit operator ApiResult<T>(Result<T> result) => new (result);

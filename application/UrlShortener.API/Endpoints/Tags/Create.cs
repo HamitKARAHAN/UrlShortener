@@ -15,7 +15,7 @@ public sealed class Create(ISender sender)
         .WithRequest<CreateTagRequest>
         .WithResult<ApiResult<CreateTagResponse>>
 {
-    [HttpPost("api/shortenUrl")]
+    [HttpPost("shortenUrl")]
     public override async Task<ApiResult<CreateTagResponse>> HandleAsync([FromBody] CreateTagRequest request, CancellationToken cancellationToken = default)
         => await sender.Send(
             request: new CreateTag.Command(

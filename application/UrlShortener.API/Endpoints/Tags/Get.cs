@@ -16,7 +16,7 @@ public sealed class Get(ISender sender)
         .WithRequest<string>
         .WithResult<ApiResult>
 {
-    [HttpGet("api/{shortCode}")]
+    [HttpGet("{shortCode}")]
     public override async Task<ApiResult> HandleAsync(
         [FromRoute] string shortCode,
         CancellationToken cancellationToken = default)

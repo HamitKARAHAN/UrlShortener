@@ -13,4 +13,5 @@ namespace UrlShortener.Infrastructure.Persistence.Repositories;
 internal sealed class TagRepository(UrlShortenerDbContext dbContext)
     : BaseRepository<Tag, TagId>(dbContext), ITagRepository
 {
+    public Task<Tag> GetAggregateByPredicateAsync(string key, Expression<Func<Tag, bool>> predicate, CancellationToken cancellationToken) => this.GetAggregateByPredicateAsync(predicate, cancellationToken);
 }
