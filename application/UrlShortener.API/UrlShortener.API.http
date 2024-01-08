@@ -1,6 +1,0 @@
-@UrlShortener.API_HostAddress = http://localhost:5001
-
-GET {{UrlShortener.API_HostAddress}}/xxxx/
-Accept: application/json
-
-###

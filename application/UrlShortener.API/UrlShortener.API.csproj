@@ -19,4 +19,8 @@
     <ProjectReference Include="..\UrlShortener.Infrastructure\UrlShortener.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".http\UrlShortener.API.http" />
+  </ItemGroup>
+
 </Project>

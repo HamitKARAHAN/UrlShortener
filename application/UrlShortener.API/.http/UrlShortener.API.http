@@ -1,0 +1,19 @@
+@protocol=https
+@hostname=localhost
+@port=5002
+@postPath=shortenUrl
+
+POST {{protocol}}://{{hostname}}:{{port}}/{{postPath}}
+Content-Type: application/json
+
+{
+    "url": "https://www.google.com",
+    "description": "Esta es una oracion de muestra!",
+    "isPublic": true
+}
+
+###
+
+GET {{protocol}}://{{hostname}}:{{port}}/f24c7e672e
+
+###
