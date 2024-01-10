@@ -4,10 +4,9 @@
 
 namespace UrlShortener.DomainCore.Enums;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Scheme
 {
     /// <summary>

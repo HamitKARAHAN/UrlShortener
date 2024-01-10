@@ -16,30 +16,46 @@ internal sealed class CachedTagRepository(ITagRepository decorated, IMemoryCache
     public async Task AddAsync(Tag aggregate, CancellationToken cancellationToken) => await decorated.AddAsync(aggregate, cancellationToken);
 
     public async Task<ShortCode> GetShortCodeAsync(string cacheKey, string longUrl, CancellationToken cancellationToken) => await cache
-                .GetOrCreateAsync(cacheKey, entry =>
+                .GetOrCreateAsync(cacheKey, async entry =>
                 {
+                    ShortCode shortCode = await decorated.GetShortCodeAsync(
+                        cacheKey: cacheKey,
+                        longUrl: longUrl,
+                        cancellationToken: cancellationToken);
+
+                    if (shortCode == null)
+                    {
+                        entry.Dispose();
+                        return null;
+                    }
+
+                    entry.Value = shortCode;
                     entry.SetOptions(new MemoryCacheEntryOptions()
                             .SetSlidingExpiration(cacheSettings.SlidingExpiration)
                             .SetAbsoluteExpiration(cacheSettings.AbsoluteExpiration)
-                    .SetPriority(CacheItemPriority.Normal));
-
-                    return decorated.GetShortCodeAsync(
-                            cacheKey: cacheKey,
-                            longUrl: longUrl,
-                            cancellationToken: cancellationToken);
+                            .SetPriority(CacheItemPriority.Normal));
+                    return shortCode;
                 });
 
     public async Task<LongUrl> GetLongUrlAsync(string cacheKey, string shortCode, CancellationToken cancellationToken) => await cache
-                .GetOrCreateAsync(cacheKey, entry =>
+                .GetOrCreateAsync(cacheKey, async entry =>
                 {
-                    entry.SetOptions(new MemoryCacheEntryOptions()
-                            .SetSlidingExpiration(cacheSettings.SlidingExpiration)
-                            .SetAbsoluteExpiration(cacheSettings.AbsoluteExpiration)
-                    .SetPriority(CacheItemPriority.Normal));
-
-                    return decorated.GetLongUrlAsync(
+                    LongUrl longUrl = await decorated.GetLongUrlAsync(
                             cacheKey: cacheKey,
                             shortCode: shortCode,
                             cancellationToken: cancellationToken);
+
+                    if (longUrl == null)
+                    {
+                        entry.Dispose();
+                        return null;
+                    }
+
+                    entry.Value = longUrl;
+                    entry.SetOptions(new MemoryCacheEntryOptions()
+                            .SetSlidingExpiration(cacheSettings.SlidingExpiration)
+                            .SetAbsoluteExpiration(cacheSettings.AbsoluteExpiration)
+                            .SetPriority(CacheItemPriority.Normal));
+                    return longUrl;
                 });
 }

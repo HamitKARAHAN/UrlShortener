@@ -66,7 +66,6 @@ public static class ApiCoreModule
     {
         app.UseHttpsRedirection();
         app.UseForwardedHeaders();
-        app.UseRequestTimeouts();
         app.UseExceptionHandler(_ => { });
         app.UseRouting();
         app.MapControllers();
