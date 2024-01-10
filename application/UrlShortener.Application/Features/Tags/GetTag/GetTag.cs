@@ -5,6 +5,7 @@
 using FluentValidation;
 using UrlShortener.ApplicationCore.CQRS;
 using UrlShortener.Domain.Abstractions;
+using UrlShortener.Domain.Helpers;
 using UrlShortener.Domain.Tags;
 using UrlShortener.DomainCore.Enums;
 using UrlShortener.DomainCore.Result;
@@ -19,7 +20,7 @@ public static class GetTag
     {
         public async Task<Result<string>> Handle(Query query, CancellationToken cancellationToken)
         {
-            LongUrl longUrl = await tagRepository.GetLongUrlAsync(cacheKey: $"tag_short_code_{query.ShortCode}", query.ShortCode, cancellationToken);
+            LongUrl longUrl = await tagRepository.GetLongUrlAsync(cacheKey: CacheKeyHelper.GetLongUrlByShortCode(query.ShortCode), query.ShortCode, cancellationToken);
 
             if (longUrl is not null && longUrl.Scheme != Scheme.None && !string.IsNullOrWhiteSpace(longUrl.Host))
             {

@@ -5,6 +5,7 @@
 using FluentValidation;
 using UrlShortener.ApplicationCore.CQRS;
 using UrlShortener.Domain.Abstractions;
+using UrlShortener.Domain.Helpers;
 using UrlShortener.Domain.Tags;
 using UrlShortener.DomainCore.Abstractions;
 using UrlShortener.DomainCore.Extensions;
@@ -31,7 +32,7 @@ public static class CreateTag
     {
         public async Task<Result<CreateTagResponse>> Handle(Command command, CancellationToken cancellationToken)
         {
-            ShortCode shortCode = await tagRepository.GetShortCodeAsync(cacheKey: $"tag_host_{command.Url.GetHost()}", command.Url, cancellationToken);
+            ShortCode shortCode = await tagRepository.GetShortCodeAsync(cacheKey: CacheKeyHelper.GetShortCodeByLongUrl(command.Url), command.Url, cancellationToken);
             if (shortCode is not null && !string.IsNullOrWhiteSpace(shortCode.Value))
             {
                 return new CreateTagResponse(shortCodeGenerator.GenerateUrl(shortCode.Value));
