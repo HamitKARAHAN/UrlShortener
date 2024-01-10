@@ -31,16 +31,16 @@ public static class CreateTag
     {
         public async Task<Result<CreateTagResponse>> Handle(Command command, CancellationToken cancellationToken)
         {
-            Tag tag = await tagRepository.GetAggregateByPredicateAsync(key: $"tag-long-url-{command.Url}", x => x.LongUrl.Value == command.Url, cancellationToken);
-            if (tag is not null)
+            ShortCode shortCode = await tagRepository.GetShortCodeAsync(cacheKey: $"tag_host_{command.Url.GetHost()}", command.Url, cancellationToken);
+            if (shortCode is not null && !string.IsNullOrWhiteSpace(shortCode.Value))
             {
-                return new CreateTagResponse(shortCodeGenerator.GenerateUrl(tag.ShortCode));
+                return new CreateTagResponse(shortCodeGenerator.GenerateUrl(shortCode.Value));
             }
 
             Tag newTag = Tag
                 .Create(
                     ShortCode.Create(shortCode: await shortCodeGenerator.GenerateShortCode(longUrl: command.Url)).Value,
-                    LongUrl.Create(longUrl: command.Url).Value,
+                    LongUrl.Create(scheme: command.Url.GetScheme(), host: command.Url.GetHost()).Value,
                     Ip.Create(ipAddress: command.IPAddress).Value,
                     Description.Create(description: command.Description).Value,
                     isPublic: command.IsPublic,

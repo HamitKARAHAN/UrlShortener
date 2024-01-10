@@ -1,19 +1,18 @@
-@protocol=https
-@hostname=localhost
-@port=5002
+@httpsHost=https://localhost:5002
+@httpHost=http://localhost:5001
 @postPath=shortenUrl
 
-POST {{protocol}}://{{hostname}}:{{port}}/{{postPath}}
+POST {{httpsHost}}/{{postPath}}
 Content-Type: application/json
 
 {
     "url": "https://www.google.com",
-    "description": "Esta es una oracion de muestra!",
+    "description": "¿Donde está mi mente?",
     "isPublic": true
 }
 
 ###
 
-GET {{protocol}}://{{hostname}}:{{port}}/f24c7e672e
+GET {{httpsHost}}/99411910ce
 
 ###

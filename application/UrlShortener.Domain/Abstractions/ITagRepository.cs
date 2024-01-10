@@ -9,7 +9,9 @@ namespace UrlShortener.Domain.Abstractions;
 
 public interface ITagRepository
 {
-    Task<Tag> GetAggregateByPredicateAsync(string key, Expression<Func<Tag, bool>> predicate, CancellationToken cancellationToken);
+    Task<ShortCode> GetShortCodeAsync(string cacheKey, string longUrl, CancellationToken cancellationToken);
+
+    Task<LongUrl> GetLongUrlAsync(string cacheKey, string shortCode, CancellationToken cancellationToken);
 
     Task AddAsync(Tag aggregate, CancellationToken cancellationToken);
 }

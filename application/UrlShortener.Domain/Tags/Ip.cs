@@ -8,6 +8,7 @@ using Ardalis.GuardClauses;
 using System.Net;
 using System.Net.Sockets;
 using UrlShortener.DomainCore.Abstractions;
+using UrlShortener.DomainCore.Enums;
 using UrlShortener.DomainCore.Extensions;
 using UrlShortener.DomainCore.Result;
 
@@ -39,22 +40,4 @@ public sealed record Ip : IValueObject
         };
         return new Ip(ipAddress, type);
     }
-}
-
-public enum IPAdressType
-{
-    /// <summary>
-    /// None
-    /// </summary>
-    None = 0,
-
-    /// <summary>
-    /// AddressFamily.InterNetwork
-    /// </summary>
-    V4 = 1,
-
-    /// <summary>
-    /// AddressFamily.InterNetworkV6
-    /// </summary>
-    V6 = 2,
 }

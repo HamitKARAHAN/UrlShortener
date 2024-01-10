@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;

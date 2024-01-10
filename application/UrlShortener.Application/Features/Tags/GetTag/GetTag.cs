@@ -6,9 +6,9 @@ using FluentValidation;
 using UrlShortener.ApplicationCore.CQRS;
 using UrlShortener.Domain.Abstractions;
 using UrlShortener.Domain.Tags;
+using UrlShortener.DomainCore.Enums;
 using UrlShortener.DomainCore.Result;
 using UrlShortener.DomainCore.Signatures;
-using static UrlShortener.Application.Features.Tags.Create.CreateTag;
 
 namespace UrlShortener.Application.Features.Tags.GetTag;
 public static class GetTag
@@ -19,14 +19,14 @@ public static class GetTag
     {
         public async Task<Result<string>> Handle(Query query, CancellationToken cancellationToken)
         {
-            Tag tag = await tagRepository.GetAggregateByPredicateAsync(key: $"tag-short-code-{query.ShortCode}", x => x.ShortCode.Value == query.ShortCode, cancellationToken);
+            LongUrl longUrl = await tagRepository.GetLongUrlAsync(cacheKey: $"tag_short_code_{query.ShortCode}", query.ShortCode, cancellationToken);
 
-            if (tag is null)
+            if (longUrl is not null && longUrl.Scheme != Scheme.None && !string.IsNullOrWhiteSpace(longUrl.Host))
             {
-                return Result<string>.BadRequest(DomainErrors.TagErrors.Error1);
+                return (string)longUrl;
             }
 
-            return tag.LongUrl.Value;
+            return Result<string>.BadRequest(DomainErrors.TagErrors.Error1);
         }
     }
 }

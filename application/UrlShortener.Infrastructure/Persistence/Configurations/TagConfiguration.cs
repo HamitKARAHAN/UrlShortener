@@ -40,9 +40,17 @@ public sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
 
         builder
             .ComplexProperty(x => x.LongUrl)
-            .IsRequired()
-            .Property(x => x.Value)
-            .HasColumnName("long_url");
+            .IsRequired();
+
+        builder.ComplexProperty(x => x.LongUrl, b =>
+        {
+            b.Property(u => u.Scheme)
+                .IsRequired()
+                .HasColumnName(nameof(LongUrl.Scheme).ToLowerInvariant());
+            b.Property(u => u.Host)
+                .IsRequired()
+                .HasColumnName(nameof(LongUrl.Host).ToLowerInvariant());
+        });
 
         builder
             .ComplexProperty(x => x.Description)

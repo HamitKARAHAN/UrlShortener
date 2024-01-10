@@ -13,7 +13,7 @@ using UrlShortener.Infrastructure.Persistence.EntityFramework;
 namespace UrlShortener.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(UrlShortenerDbContext))]
-    [Migration("20240108170030_Initial")]
+    [Migration("20240110130255_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -132,9 +132,14 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                         {
                             b1.IsRequired();
 
-                            b1.Property<string>("Value")
+                            b1.Property<string>("Host")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("long_url");
+                                .HasColumnName("host");
+
+                            b1.Property<int>("Scheme")
+                                .HasColumnType("int")
+                                .HasColumnName("scheme");
                         });
 
                     b.ComplexProperty<Dictionary<string, object>>("ShortCode", "UrlShortener.Domain.Tags.Tag.ShortCode#ShortCode", b1 =>

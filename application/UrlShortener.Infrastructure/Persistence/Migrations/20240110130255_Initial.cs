@@ -1,4 +1,4 @@
-﻿// <copyright file="20240108170030_Initial.cs" company="PlaceholderCompany">
+﻿// <copyright file="20240110130255_Initial.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -24,16 +24,17 @@ public partial class Initial : Migration
             columns: table => new
             {
                 id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                is_public = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                deleted_date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                 description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                ip_address_type = table.Column<int>(type: "int", nullable: false),
-                ip_address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                long_url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                scheme = table.Column<int>(type: "int", nullable: false),
+                host = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 short_code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                ip_address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                ip_address_type = table.Column<int>(type: "int", nullable: false),
+                is_public = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                 creation_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                last_modify_date = table.Column<DateTime>(type: "datetime2", nullable: true)
+                last_modify_date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                deleted_date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
             },
             constraints: table =>
             {
@@ -47,12 +48,12 @@ public partial class Initial : Migration
             {
                 id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 TagId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                creation_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                 click_count = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
                 last_access_time = table.Column<DateTime>(type: "datetime2", nullable: true),
+                last_modify_date = table.Column<DateTime>(type: "datetime2", nullable: true),
                 is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                deleted_date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                creation_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                last_modify_date = table.Column<DateTime>(type: "datetime2", nullable: true)
+                deleted_date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
             },
             constraints: table =>
             {

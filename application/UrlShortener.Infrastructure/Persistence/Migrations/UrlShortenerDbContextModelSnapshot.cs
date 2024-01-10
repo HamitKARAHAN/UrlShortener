@@ -129,9 +129,14 @@ namespace UrlShortener.Infrastructure.Persistence.Migrations
                         {
                             b1.IsRequired();
 
-                            b1.Property<string>("Value")
+                            b1.Property<string>("Host")
+                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("long_url");
+                                .HasColumnName("host");
+
+                            b1.Property<int>("Scheme")
+                                .HasColumnType("int")
+                                .HasColumnName("scheme");
                         });
 
                     b.ComplexProperty<Dictionary<string, object>>("ShortCode", "UrlShortener.Domain.Tags.Tag.ShortCode#ShortCode", b1 =>
