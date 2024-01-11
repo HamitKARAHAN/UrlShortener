@@ -11,5 +11,5 @@ using UrlShortener.DomainCore.Primitives;
 
 public sealed class UnitOfWork(DbContext dbContext) : IUnitOfWork
 {
-    public async Task SaveChangesAsync(CancellationToken cancellationToken) => await dbContext.SaveChangesAsync(cancellationToken);
+    public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
 }

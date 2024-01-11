@@ -27,7 +27,7 @@ internal sealed class UpdateAuditableEntitiesInterceptor(IDateTimeProvider dateT
         CancellationToken cancellationToken = default)
     {
         this.UpdateAutditableEntites(eventData);
-        return base.SavingChangesAsync(eventData, result, cancellationToken);
+        return base.SavingChangesAsync(eventData, result);
     }
 
     private void UpdateAutditableEntites(DbContextEventData eventData)

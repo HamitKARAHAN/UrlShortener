@@ -16,7 +16,21 @@ public sealed class Get(ISender sender)
         .WithRequest<string>
         .WithResult<ApiResult>
 {
-    [HttpGet("{shortCode}")]
+    /// <summary>
+    /// Shortens Url and gives its shortened version.
+    /// </summary>
+    /// <param name="shortCode">Short Code for created for an actual url.</param>
+    /// <param name="cancellationToken">Cancellation Token for cancelling the request if needed.</param>
+    /// <returns>Redirects user to actual shortened url.</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///       "https://localhost:5002/api/{shortCode}".
+    ///
+    /// </remarks>
+    /// <response code="200">returns shortened version of given url.</response>
+    /// <response code="400">when short code not available.</response>
+    [HttpGet("api/{shortCode}")]
     public override async Task<ApiResult> HandleAsync(
         [FromRoute] string shortCode,
         CancellationToken cancellationToken = default)

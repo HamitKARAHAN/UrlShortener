@@ -11,7 +11,7 @@ namespace UrlShortener.Infrastructure.Persistence.Repositories;
 
 internal sealed class CachedTagRepository(ITagRepository decorated, IMemoryCache cache, CacheSettings cacheSettings) : ITagRepository
 {
-    public async Task AddAsync(Tag aggregate, CancellationToken cancellationToken) => await decorated.AddAsync(aggregate, cancellationToken);
+    public async Task AddAsync(Tag aggregate) => await decorated.AddAsync(aggregate);
 
     public async Task<ShortCode> GetShortCodeAsync(string cacheKey, string longUrl, CancellationToken cancellationToken) => await cache
                 .GetOrCreateAsync(cacheKey, async entry =>

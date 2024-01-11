@@ -13,5 +13,5 @@ public interface ITagRepository
 
     Task<LongUrl> GetLongUrlAsync(string cacheKey, string shortCode, CancellationToken cancellationToken);
 
-    Task AddAsync(Tag aggregate, CancellationToken cancellationToken);
+    Task AddAsync(Tag aggregate);
 }

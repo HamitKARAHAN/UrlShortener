@@ -23,7 +23,7 @@ internal sealed class PublishDomainEventsInterceptor(IPublisher publisher) : Sav
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
         await this.PublishDomainEvents(eventData);
-        return await base.SavingChangesAsync(eventData, result, cancellationToken);
+        return await base.SavingChangesAsync(eventData, result);
     }
 
     private async Task PublishDomainEvents(DbContextEventData eventData)

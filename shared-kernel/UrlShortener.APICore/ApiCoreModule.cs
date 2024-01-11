@@ -9,17 +9,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Reflection;
 using UrlShortener.APICore.Middlewares;
 
 public static class ApiCoreModule
 {
     private const int TimeoutStatusCode = (int)HttpStatusCode.GatewayTimeout;
 
-    public static IServiceCollection AddApiCoreModule(this IServiceCollection services)
+    public static IServiceCollection AddApiCoreModule(this IServiceCollection services, Assembly assembly)
         => services
             .AddControllerModule()
+            .AddSwaggerModule(assembly)
             .AddForwardedHeaders()
             .AddRequestTimeouts()
             .AddExceptionHandlerMiddlewares();
@@ -62,8 +67,47 @@ public static class ApiCoreModule
             .AddExceptionHandler<ModelBindingExceptionMiddleware>()
             .AddExceptionHandler<GlobalExceptionMiddleware>();
 
+    [SuppressMessage("Minor Code Smell", "S1075:URIs should not be hardcoded", Justification = "<Pending>")]
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1404:Code analysis suppression should have justification", Justification = "<Pending>")]
+    private static IServiceCollection AddSwaggerModule(this IServiceCollection services, Assembly assembly)
+    {
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc(name: "v1", info: new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "ToDo API",
+                Description = "An ASP.NET Core Web API for managing ToDo items",
+                TermsOfService = new Uri(uriString: "https://example.com/terms"),
+                Contact = new OpenApiContact
+                {
+                    Name = "Example Contact",
+                    Url = new Uri(uriString: "https://example.com/contact")
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Example License",
+                    Url = new Uri("https://example.com/license")
+                }
+            });
+            string xmlFilename = $"{assembly.GetName().Name}.xml";
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+        });
+        return services;
+    }
+
     public static WebApplication UseApiCoreModule(this WebApplication app)
     {
+        if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "v1");
+                options.RoutePrefix = string.Empty;
+            });
+        }
+
         app.UseHttpsRedirection();
         app.UseForwardedHeaders();
         app.UseExceptionHandler(_ => { });

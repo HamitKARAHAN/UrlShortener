@@ -37,10 +37,10 @@ public abstract class BaseRepository<T, TId>(DbContext dbContext)
     public async Task<bool> ExistsAsync(TId id, CancellationToken cancellationToken)
         => this.DbSet.Local.Any(e => e.Id.Equals(id)) || await this.DbSet.AnyAsync(e => e.Id.Equals(id), cancellationToken);
 
-    public async Task AddAsync(T aggregate, CancellationToken cancellationToken)
+    public async Task AddAsync(T aggregate)
     {
         Guard.Against.Null(aggregate);
-        await this.DbSet.AddAsync(aggregate, cancellationToken);
+        await this.DbSet.AddAsync(aggregate);
     }
 
     public void Update(T aggregate)

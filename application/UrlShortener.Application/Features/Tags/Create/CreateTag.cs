@@ -48,8 +48,8 @@ public static class CreateTag
                     dateTimeProvider.UtcNow())
                 .Value;
 
-            await tagRepository.AddAsync(newTag, cancellationToken);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await tagRepository.AddAsync(newTag);
+            await unitOfWork.SaveChangesAsync();
             return new CreateTagResponse(shortCodeGenerator.GenerateUrl(newTag.ShortCode));
         }
     }

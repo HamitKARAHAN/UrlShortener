@@ -346,6 +346,12 @@ dotnet_diagnostic.CA1062.severity = none
 # CA1725: Parameter names should match base declaration
 dotnet_diagnostic.CA1725.severity = none
 
+# CA2016: Forward the 'CancellationToken' parameter to methods
+dotnet_diagnostic.CA2016.severity = none
+
+# S3466: Optional parameters should be passed to "base" calls
+dotnet_diagnostic.S3466.severity = none
+
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4

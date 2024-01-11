@@ -24,7 +24,7 @@ internal sealed class SoftDeleteInterceptor(IDateTimeProvider dateTimeProvider) 
     public override async ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default)
     {
         this.SetSoftDelete(eventData);
-        return await base.SavedChangesAsync(eventData, result, cancellationToken);
+        return await base.SavedChangesAsync(eventData, result);
     }
 
     private void SetSoftDelete(SaveChangesCompletedEventData eventData)

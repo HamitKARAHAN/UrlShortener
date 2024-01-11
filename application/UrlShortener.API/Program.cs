@@ -8,7 +8,7 @@ using UrlShortener.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services
-    .AddApiCoreModule()
+    .AddApiCoreModule(UrlShortener.API.AssemblyReference.Assembly)
     .AddApplicationModule()
     .AddInfrastructureModule(configuration: builder.Configuration);
 
