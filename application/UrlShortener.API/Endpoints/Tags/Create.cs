@@ -34,7 +34,7 @@ public sealed class Create(ISender sender)
     ///
     /// </remarks>
     /// <response code="200">returns shortened version of given url.</response>
-    [HttpPost("api/shortenUrl")]
+    [HttpPost("shorten")]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]

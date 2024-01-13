@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -76,8 +77,8 @@ public static class ApiCoreModule
             options.SwaggerDoc(name: "v1", info: new OpenApiInfo
             {
                 Version = "v1",
-                Title = "ToDo API",
-                Description = "An ASP.NET Core Web API for managing ToDo items",
+                Title = "Url Shortener API",
+                Description = "An API for shortening urls",
                 TermsOfService = new Uri(uriString: "https://example.com/terms"),
                 Contact = new OpenApiContact
                 {
@@ -100,11 +101,22 @@ public static class ApiCoreModule
     {
         if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
         {
-            app.UseSwagger();
+            app.UseStaticFiles();
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger(option => option.RouteTemplate = "docs/{documentName}/docs.json");
+            app.UseReDoc(options =>
+            {
+                options.DocumentTitle = "Url Shortener API Documentation";
+                options.SpecUrl("/docs/v1/docs.json");
+                options.RoutePrefix = "redocs";
+            });
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "v1");
-                options.RoutePrefix = string.Empty;
+                options.DocumentTitle = "Url Shortener API Documentation";
+                options.InjectStylesheet("/swagger-ui/theme-outline.css");
+                options.InjectStylesheet("/swagger-ui/custom.css");
+                options.SwaggerEndpoint(url: "/docs/v1/docs.json", name: "v1");
+                options.RoutePrefix = "docs";
             });
         }
 

@@ -1,0 +1,15 @@
+﻿.topbar {
+    background-color: blueviolet !important;
+}
+
+.topbar-wrapper a.link * {
+    display: none;
+}
+
+.topbar-wrapper a.link {
+    background-image: url('/swagger-ui/bs.png');
+    background-size: 40px;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+}

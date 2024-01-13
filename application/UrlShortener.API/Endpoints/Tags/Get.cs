@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Net.Mime;
 using Ardalis.ApiEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +26,15 @@ public sealed class Get(ISender sender)
     /// <remarks>
     /// Sample request:
     ///
-    ///       "https://localhost:5002/api/{shortCode}".
+    ///       "https://localhost:5002/shortener/{shortCode}".
     ///
     /// </remarks>
-    /// <response code="200">returns shortened version of given url.</response>
-    /// <response code="400">when short code not available.</response>
-    [HttpGet("api/{shortCode}")]
+    /// <response code="308">redirects to actual url.</response>
+    /// <response code="400">when short code is not available.</response>
+    [HttpGet("{shortCode}")]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status308PermanentRedirect)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public override async Task<ApiResult> HandleAsync(
         [FromRoute] string shortCode,
         CancellationToken cancellationToken = default)
